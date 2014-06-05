@@ -46,3 +46,4 @@ gem 'debugger', group: [:development, :test]
 
 gem 'devise'
 gem 'cancan'
+gem 'role_model'
