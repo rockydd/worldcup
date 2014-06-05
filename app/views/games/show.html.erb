@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @game.date %>
+</p>
+
+<p>
+  <strong>Host:</strong>
+  <%= @game.host_id %>
+</p>
+
+<p>
+  <strong>Guest:</strong>
+  <%= @game.guest_id %>
+</p>
+
+<p>
+  <strong>Host score:</strong>
+  <%= @game.host_score %>
+</p>
+
+<p>
+  <strong>Guest score:</strong>
+  <%= @game.guest_score %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @game.status %>
+</p>
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
