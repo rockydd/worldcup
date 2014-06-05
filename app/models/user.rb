@@ -8,4 +8,9 @@ class User < ActiveRecord::Base
   include RoleModel
   roles_attribute :roles_mask
   roles :admin, :player, :guest
+  before_save :set_default_role
+
+  def set_default_role
+    self.roles = [:player] if self.roles.empty?
+  end
 end
