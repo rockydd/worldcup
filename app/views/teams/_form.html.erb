@@ -1,25 +1,44 @@
-<%= form_for(@team) do |f| %>
-  <% if @team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
-
-      <ul>
-      <% @team.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @team, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :external_link, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :external_link, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar_file_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :avatar_file_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar_content_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :avatar_content_type, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar_file_size, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :avatar_file_size, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :avatar_updated_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :avatar_updated_at, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :external_link %><br>
-    <%= f.text_field :external_link %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                teams_path, :class => 'btn' %>
   </div>
 <% end %>
