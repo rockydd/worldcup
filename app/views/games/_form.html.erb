@@ -1,41 +1,44 @@
-<%= form_for(@game) do |f| %>
-  <% if @game.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
-
-      <ul>
-      <% @game.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @game, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :date, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :host_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :host_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :guest_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :guest_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :host_score, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :host_score, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :guest_score, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :guest_score, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :status, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :status, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
-  </div>
-  <div class="field">
-    <%= f.label :host_id %><br>
-    <%= f.number_field :host_id %>
-  </div>
-  <div class="field">
-    <%= f.label :guest_id %><br>
-    <%= f.number_field :guest_id %>
-  </div>
-  <div class="field">
-    <%= f.label :host_score %><br>
-    <%= f.number_field :host_score %>
-  </div>
-  <div class="field">
-    <%= f.label :guest_score %><br>
-    <%= f.number_field :guest_score %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.number_field :status %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                games_path, :class => 'btn' %>
   </div>
 <% end %>

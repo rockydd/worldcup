@@ -1,34 +1,31 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Game -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @game.date %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+  <dd><%= @game.date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:host_id) %>:</strong></dt>
+  <dd><%= @game.host_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:guest_id) %>:</strong></dt>
+  <dd><%= @game.guest_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:host_score) %>:</strong></dt>
+  <dd><%= @game.host_score %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:guest_score) %>:</strong></dt>
+  <dd><%= @game.guest_score %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @game.status %></dd>
+</dl>
 
-<p>
-  <strong>Host:</strong>
-  <%= @game.host_id %>
-</p>
-
-<p>
-  <strong>Guest:</strong>
-  <%= @game.guest_id %>
-</p>
-
-<p>
-  <strong>Host score:</strong>
-  <%= @game.host_score %>
-</p>
-
-<p>
-  <strong>Guest score:</strong>
-  <%= @game.guest_score %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @game.status %>
-</p>
-
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              games_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_game_path(@game), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              game_path(@game),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
