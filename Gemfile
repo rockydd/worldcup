@@ -49,3 +49,4 @@ gem 'cancan'
 gem 'role_model'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
+gem 'paperclip', "~> 4.1"
