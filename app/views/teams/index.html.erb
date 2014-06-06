@@ -5,28 +5,16 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:external_link) %></th>
-      <th><%= model_class.human_attribute_name(:avatar_file_name) %></th>
-      <th><%= model_class.human_attribute_name(:avatar_content_type) %></th>
-      <th><%= model_class.human_attribute_name(:avatar_file_size) %></th>
-      <th><%= model_class.human_attribute_name(:avatar_updated_at) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @teams.each do |team| %>
       <tr>
-        <td><%= link_to team.id, team_path(team) %></td>
-        <td><%= team.name %></td>
+        <td><%= image_tag team.avatar.url(:thumb) %> <%= link_to team.name, team_path(team) %></td>
         <td><%= team.external_link %></td>
-        <td><%= team.avatar_file_name %></td>
-        <td><%= team.avatar_content_type %></td>
-        <td><%= team.avatar_file_size %></td>
-        <td><%= team.avatar_updated_at %></td>
-        <td><%=l team.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_team_path(team), :class => 'btn btn-mini' %>
