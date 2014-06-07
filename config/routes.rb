@@ -1,4 +1,6 @@
 Worldcup::Application.routes.draw do
+  resources :gambles
+
   resources :bets
 
   resources :teams
