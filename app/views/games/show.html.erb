@@ -3,24 +3,34 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+  <dl class="dl-horizontal">
+    <dd><%= @game.date %></dd>
+  </dl>
+
   <div class='game-summary center-box'>
     <%= image_tag @game.host.avatar.url(:thumb) %>
     <span><%= @game.balance %></span>
     <%= image_tag @game.guest.avatar.url(:thumb) %>
   </div>
 
-  <dl class="dl-horizontal">
-    <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
-    <dd><%= @game.date %></dd>
-  </dl>
   <div class='game-bet center-box'>
-    <%= radio_button_tag(:gamebet, "hostwin") %>
-    <%= radio_button_tag(:gamebet, "guestwin") %>
     <div width="100px">
-      <ul class='horizon_list'>
-        <li><%= label_tag(:gamebet_hostwin, "Host Win #{@game.host_odds}") %></li>
-        <li><%= label_tag(:gamebet_guestwin, "Guest Win #{@game.guest_odds}") %></li>
-      </ul>
+      <% @bet = Bet.new %>
+      <%= form_for @bet, :html => { :id => 'form_host_win', :class => 'bet-form'} do |f| %>
+        <%= f.hidden_field :game_id, :value => @game.id %>
+        <%= f.hidden_field :wager_on, :value => 0 %>
+        <%= f.hidden_field :amount, :value => 1 %>
+        <%= button_tag "#{@game.host.name} Win #{@game.host_odds}",
+          data: {confirm: "Are you sure to bet on #{@game.host.name}?"}, class: 'btn bet-button' %>
+      <% end %>
+      <%= form_for @bet, :html => { :id => 'form_guest_win', :class => 'bet-form'} do |f| %>
+        <%= f.hidden_field :game_id, :value => @game.id %>
+        <%= f.hidden_field :wager_on, :value => 1 %>
+        <%= f.hidden_field :amount, :value => 1 %>
+        <%= button_tag "#{@game.guest.name} Win #{@game.guest_odds}",
+          data: {confirm: "Are you sure to bet on #{@game.guest.name}?"}, class: 'btn bet-button' %>
+      <% end %>
+
     </div>
   </div>
 
