@@ -3,6 +3,12 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+  <div class='game-summary'>
+    <%= image_tag @game.host.avatar.url(:thumb) %>
+    <span><%= @game.balance %></span>
+    <%= image_tag @game.guest.avatar.url(:thumb) %>
+  </div>
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
   <dd><%= @game.date %></dd>
