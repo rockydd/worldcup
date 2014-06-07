@@ -11,6 +11,8 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
+    @gamble = @game.gamble
+    @host_win_bet_id = @gamble.find_by_description("#{@game.host.name
   end
 
   # GET /games/new

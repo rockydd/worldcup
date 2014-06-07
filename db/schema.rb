@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607231015) do
+ActiveRecord::Schema.define(version: 20140607233815) do
 
   create_table "bets", force: true do |t|
     t.integer  "game_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140607231015) do
     t.float    "balance"
     t.float    "host_odds"
     t.float    "guest_odds"
+    t.integer  "gamble_id"
   end
 
   create_table "teams", force: true do |t|
