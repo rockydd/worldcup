@@ -2,44 +2,14 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:date) %></th>
-      <th><%= model_class.human_attribute_name(:host_id) %></th>
-      <th><%= model_class.human_attribute_name(:guest_id) %></th>
-      <th><%= model_class.human_attribute_name(:host_score) %></th>
-      <th><%= model_class.human_attribute_name(:guest_score) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @games.each do |game| %>
-      <tr>
-        <td><%= link_to game.id, game_path(game) %></td>
-        <td><%= game.date %></td>
-        <td><%= game.host_id %></td>
-        <td><%= game.guest_id %></td>
-        <td><%= game.host_score %></td>
-        <td><%= game.guest_score %></td>
-        <td><%= game.status %></td>
-        <td><%=l game.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_game_path(game), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      game_path(game),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @games.each do |game| %>
+  <div>
+    <%= image_tag game.host.avatar.url(:thumb) %>
+    <span>VS</span>
+    <%= image_tag game.guest.avatar.url(:thumb) %>
+    <span><%= link_to "Guess", game_path(game) %></span>
+  </div>
+<% end%>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_game_path,
