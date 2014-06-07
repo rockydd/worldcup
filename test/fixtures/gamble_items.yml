@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gamble_id: 1
+  odds: 1.5
+  description: MyString
+  win: false
+
+two:
+  gamble_id: 1
+  odds: 1.5
+  description: MyString
+  win: false
