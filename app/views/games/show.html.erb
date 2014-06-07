@@ -3,26 +3,26 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-  <div class='game-summary'>
+  <div class='game-summary center-box'>
     <%= image_tag @game.host.avatar.url(:thumb) %>
     <span><%= @game.balance %></span>
     <%= image_tag @game.guest.avatar.url(:thumb) %>
   </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
-  <dd><%= @game.date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:host_id) %>:</strong></dt>
-  <dd><%= @game.host_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:guest_id) %>:</strong></dt>
-  <dd><%= @game.guest_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:host_score) %>:</strong></dt>
-  <dd><%= @game.host_score %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:guest_score) %>:</strong></dt>
-  <dd><%= @game.guest_score %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-  <dd><%= @game.status %></dd>
-</dl>
+  <dl class="dl-horizontal">
+    <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+    <dd><%= @game.date %></dd>
+  </dl>
+  <div class='game-bet center-box'>
+    <%= radio_button_tag(:gamebet, "hostwin") %>
+    <%= radio_button_tag(:gamebet, "guestwin") %>
+    <div width="100px">
+      <ul class='horizon_list'>
+        <li><%= label_tag(:gamebet_hostwin, "Host Win #{@game.host_odds}") %></li>
+        <li><%= label_tag(:gamebet_guestwin, "Guest Win #{@game.guest_odds}") %></li>
+      </ul>
+    </div>
+  </div>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
