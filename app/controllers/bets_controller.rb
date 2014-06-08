@@ -25,13 +25,14 @@ class BetsController < ApplicationController
   # POST /bets.json
   def create
     _params=bet_params
+    @game = Game.find(_params.delete(:game_id))
 
     respond_to do |format|
       if  @bet = current_user.bet_on(_params[:gamble_id], _params[:gamble_item_id], _params[:amount])
-        format.html { redirect_to @bet, notice: 'Bet was successfully created.' }
+        format.html { redirect_to @game, notice: 'Bet was successfully created.' }
         format.json { render action: 'show', status: :created, location: @bet }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to @game }
         format.json { render json: @bet.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +70,6 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:gamble_id, :gamble_item_id, :amount)
+      params.require(:bet).permit(:game_id, :gamble_id, :gamble_item_id, :amount)
     end
 end

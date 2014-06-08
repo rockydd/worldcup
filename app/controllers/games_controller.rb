@@ -12,6 +12,8 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @gamble = @game.gamble
+    bet = current_user && current_user.has_bet?(@gamble)
+    @bet_item_id = bet.gamble_item.id
   end
 
   # GET /games/new
