@@ -16,7 +16,7 @@
     <% @gambles.each do |gamble| %>
       <tr>
         <td><%= link_to gamble.id, gamble_path(gamble) %></td>
-        <td><%= gamble.type %></td>
+        <td><%= gamble.gamble_type %></td>
         <td><%= gamble.status %></td>
         <td><%=l gamble.created_at %></td>
         <td>
