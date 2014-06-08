@@ -25,11 +25,9 @@ class BetsController < ApplicationController
   # POST /bets.json
   def create
     _params=bet_params
-    _params.merge!({"user_id" => current_user.id})
-    @bet = Bet.new(_params)
 
     respond_to do |format|
-      if @bet.save
+      if  @bet = current_user.bet_on(_params[:gamble_id], _params[:gamble_item_id], _params[:amount])
         format.html { redirect_to @bet, notice: 'Bet was successfully created.' }
         format.json { render action: 'show', status: :created, location: @bet }
       else

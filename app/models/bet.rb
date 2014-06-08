@@ -16,4 +16,5 @@ class Bet < ActiveRecord::Base
   def bet_on
     gamble_item
   end
+
 end
