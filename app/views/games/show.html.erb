@@ -17,15 +17,15 @@
     <div width="100px">
       <% @bet = Bet.new %>
       <%= form_for @bet, :html => { :id => 'form_host_win', :class => 'bet-form'} do |f| %>
-        <%= f.hidden_field :game_id, :value => @game.id %>
-        <%= f.hidden_field :wager_on, :value => @game.bet_id_for_host %>
+        <%= f.hidden_field :gamble_id, :value => @gamble.id %>
+        <%= f.hidden_field :gamble_item_id, :value => @game.bet_id_for_host %>
         <%= f.hidden_field :amount, :value => 1 %>
         <%= button_tag "#{@game.host.name} Win #{@game.host_odds}",
           data: {confirm: "Are you sure to bet on #{@game.host.name}?"}, class: 'btn bet-button' %>
       <% end %>
       <%= form_for @bet, :html => { :id => 'form_guest_win', :class => 'bet-form'} do |f| %>
-        <%= f.hidden_field :game_id, :value => @game.id %>
-        <%= f.hidden_field :wager_on, :value => @game.bet_id_for_guest %>
+        <%= f.hidden_field :gamble_id, :value => @gamble.id %>
+        <%= f.hidden_field :gamble_item_id, :value => @game.bet_id_for_guest %>
         <%= f.hidden_field :amount, :value => 1 %>
         <%= button_tag "#{@game.guest.name} Win #{@game.guest_odds}",
           data: {confirm: "Are you sure to bet on #{@game.guest.name}?"}, class: 'btn bet-button' %>

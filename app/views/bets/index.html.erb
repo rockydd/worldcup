@@ -6,9 +6,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:game_id) %></th>
+      <th><%= model_class.human_attribute_name(:gamble_id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:wager_on) %></th>
+      <th><%= model_class.human_attribute_name(:bet_on) %></th>
       <th><%= model_class.human_attribute_name(:amount) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -18,9 +18,9 @@
     <% @bets.each do |bet| %>
       <tr>
         <td><%= link_to bet.id, bet_path(bet) %></td>
-        <td><%= bet.game_id %></td>
+        <td><%= bet.gamble_id %></td>
         <td><%= bet.user_id %></td>
-        <td><%= bet.wager_on %></td>
+        <td><%= bet.bet_on.desc if bet.bet_on %></td>
         <td><%= bet.amount %></td>
         <td><%=l bet.created_at %></td>
         <td>

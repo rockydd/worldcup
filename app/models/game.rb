@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   belongs_to :guest, :class_name => Team
   belongs_to :gamble
 
-  after_save :create_gamble
+  before_save :create_gamble
 
   def bet_desc_for_host
     "#{host.name} win"

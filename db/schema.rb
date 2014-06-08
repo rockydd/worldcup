@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607235741) do
+ActiveRecord::Schema.define(version: 20140608010601) do
 
   create_table "bets", force: true do |t|
-    t.integer  "game_id"
     t.integer  "user_id"
-    t.integer  "wager_on"
     t.float    "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gamble_id"
+    t.integer  "gamble_item_id"
   end
 
   create_table "gamble_items", force: true do |t|

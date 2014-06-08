@@ -4,12 +4,12 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:game_id) %>:</strong></dt>
-  <dd><%= @bet.game_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:gamble_id) %>:</strong></dt>
+  <dd><%= @bet.gamble_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
   <dd><%= @bet.user_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:wager_on) %>:</strong></dt>
-  <dd><%= @bet.wager_on %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bet_on) %>:</strong></dt>
+  <dd><%= @bet.bet_on.desc%></dd>
   <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
   <dd><%= @bet.amount %></dd>
 </dl>
