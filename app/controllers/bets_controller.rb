@@ -25,14 +25,17 @@ class BetsController < ApplicationController
   # POST /bets.json
   def create
     _params=bet_params
-    @game = Game.find(_params.delete(:game_id))
+    game = Game.find(_params.delete(:game_id))
+    gamble = Gamble.find(_params[:gamble_id])
+    gamble_item = GambleItem.find(_params[:gamble_item_id])
+    amount = _params[:amount].to_f
 
     respond_to do |format|
-      if  @bet = current_user.bet_on(_params[:gamble_id], _params[:gamble_item_id], _params[:amount])
-        format.html { redirect_to @game, notice: 'Bet was successfully created.' }
+      if  @bet = current_user.bet_on(gamble, gamble_item, amount)
+        format.html { redirect_to game, notice: 'Bet was successfully created.' }
         format.json { render action: 'show', status: :created, location: @bet }
       else
-        format.html { redirect_to @game }
+        format.html { redirect_to game }
         format.json { render json: @bet.errors, status: :unprocessable_entity }
       end
     end

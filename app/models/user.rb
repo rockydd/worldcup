@@ -39,13 +39,23 @@ class User < ActiveRecord::Base
     bets.find{|bet|bet.gamble == gamble}
   end
 
-  def bet_on(gamble_id, gamble_item_id, amount)
-    raise 'not enough chips' if amount < self.account.available
-    gamble = Gamble.find(gamble_id)
-    if bet=has_bet?(gamble)
-      bet.update({:gamble_id => gamble_id, :gamble_item_id => gamble_item_id, :amount => bet.amount + amount})
+  def has_bet_on?(gamble_item)
+    bets.find{|bet|bet.gamble_item == gamble_item}
+  end
+
+  def bets_for_gamble(gamble)
+    bets.select{|bet| bet.gamble == gamble}
+  end
+
+  def bet_on(gamble, gamble_item, amount)
+    raise 'invalid bet chips' if amount < 1
+    raise 'not enough chips' if amount > self.account.available
+    raise 'invalid gamble' if gamble.nil? || gamble_item.nil? || gamble_item.gamble != gamble
+
+    if bet=has_bet_on?(gamble_item)
+      bet.update({:gamble_id => gamble.id, :gamble_item_id => gamble_item.id, :amount => bet.amount + amount})
     else
-      bet = Bet.new({:gamble_id => gamble_id, :gamble_item_id => gamble_item_id, :amount => amount, :user_id => self.id})
+      bet = Bet.create({:gamble_id => gamble.id, :gamble_item_id => gamble_item.id, :amount => amount, :user_id => self.id})
     end
     self.account.available -= amount
     self.account.frozen_value += amount

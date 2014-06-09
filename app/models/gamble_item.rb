@@ -3,7 +3,7 @@ class GambleItem < ActiveRecord::Base
   has_many :bets
 
   def desc
-    "#{description}(#{odds})"
+    "#{description}(#{odds.round(2)})"
   end
 
   def odds

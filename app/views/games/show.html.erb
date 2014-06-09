@@ -16,23 +16,19 @@
   <div class='game-bet center-box'>
     <div width="100px">
       <% @bet = Bet.new %>
-      <%= form_for @bet, :html => { :id => 'form_host_win', :class => 'bet-form'} do |f| %>
-        <%= f.hidden_field :game_id, :value => @game.id %>
-        <%= f.hidden_field :gamble_id, :value => @gamble.id %>
-        <%= f.hidden_field :gamble_item_id, :value => @game.bet_id_for_host %>
-        <%= f.hidden_field :amount, :value => 1 %>
-        <%= button_tag "#{@game.host.name} Win #{@game.host_odds}",
-          data: {confirm: "Are you sure to bet on #{@game.host.name}?"}, class: "btn bet-button #{'btn-primary' if @bet_item_id == @game.bet_id_for_host}" %>
-      <% end %>
-      <%= form_for @bet, :html => { :id => 'form_guest_win', :class => 'bet-form'} do |f| %>
-        <%= f.hidden_field :gamble_id, :value => @gamble.id %>
-        <%= f.hidden_field :game_id, :value => @game.id %>
-        <%= f.hidden_field :gamble_item_id, :value => @game.bet_id_for_guest %>
-        <%= f.hidden_field :amount, :value => 1 %>
-        <%= button_tag "#{@game.guest.name} Win #{@game.guest_odds}",
-          data: {confirm: "Are you sure to bet on #{@game.guest.name}?"}, class: "btn bet-button #{'btn-primary' if @bet_item_id == @game.bet_id_for_guest}" %>
-      <% end %>
-
+      <% @game.gamble_items.each do |gamble_item| %>
+        <%@my_bet = current_user.has_bet_on?(gamble_item) if current_user%>
+        <%= form_for @bet, :html => { :id => 'form_host_win', :class => 'bet-form'} do |f| %>
+          <%= f.hidden_field :game_id, :value => @game.id %>
+          <%= f.hidden_field :gamble_id, :value => @gamble.id %>
+          <%= f.hidden_field :gamble_item_id, :value => gamble_item.id%>
+          <div class='bet-field'>
+          <%= f.number_field :amount, :class=> 'bet-box', :value => @my_bet && @my_bet.amount || 1%>
+          <%= button_tag gamble_item.desc,
+            data: {confirm: "Are you sure to bet on #{gamble_item.desc}?"}, class: "btn bet-button #{'btn-primary' if current_user and current_user.has_bet_on?(gamble_item)}" %>
+          </div>
+          <% end %>
+        <% end%>
     </div>
   </div>
 
