@@ -21,6 +21,20 @@ class User < ActiveRecord::Base
     User.find_by_email(DEALER_EMAIL) || User.create(:email => DEALER_EMAIL, :password => (0...8).map { (65 + rand(26)).chr }.join)
   end
 
+  def self.regular_user
+    users = User.all
+    users.delete(find_dealer)
+    users
+  end
+  def self.top_10
+    regular_user.sort{|u1, u2| u1.balance <=> u2.balance }[0,9]
+  end
+
+  def balance
+    self.save unless self.account
+    self.account.available + self.account.frozen_value
+  end
+
   def is_dealer?
     self.email == DEALER_EMAIL
   end
