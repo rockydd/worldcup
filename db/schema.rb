@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140608010601) do
+ActiveRecord::Schema.define(version: 20140609150633) do
 
   create_table "bets", force: true do |t|
     t.integer  "user_id"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20140608010601) do
 
   create_table "gamble_items", force: true do |t|
     t.integer  "gamble_id"
-    t.float    "odds"
     t.string   "description"
     t.boolean  "win"
     t.datetime "created_at"
@@ -48,8 +47,6 @@ ActiveRecord::Schema.define(version: 20140608010601) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "balance"
-    t.float    "host_odds"
-    t.float    "guest_odds"
     t.integer  "gamble_id"
   end
 
