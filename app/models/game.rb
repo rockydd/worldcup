@@ -23,6 +23,7 @@ class Game < ActiveRecord::Base
     if self.gamble.nil?
       self.gamble=Gamble.create(:status => 'not started', :gamble_type => 'match')
       self.gamble.items << GambleItem.create(:description => "#{host.name} win", :odds => host_odds)
+      self.gamble.items << GambleItem.create(:description => "equal", :odds => equal_odds)
       self.gamble.items << GambleItem.create(:description => "#{guest.name} win", :odds => guest_odds)
     end
   end
