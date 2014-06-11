@@ -11,3 +11,12 @@
   float: left;
   margin: 20px;
 }
+.money-total{
+  font-weight: bold;
+}
+.money-available{
+  color: green;
+}
+.money-frozen{
+  color: gray;
+}

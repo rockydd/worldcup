@@ -22,12 +22,10 @@ class User < ActiveRecord::Base
   end
 
   def self.regular_user
-    users = User.all
-    users.delete(find_dealer)
-    users
+    users = User.where.not(email: DEALER_EMAIL)
   end
   def self.top_10
-    regular_user.sort{|u1, u2| u1.balance <=> u2.balance }[0,9]
+    regular_user.sort{|u1, u2| - u1.balance <=> u2.balance }[0,9]
   end
 
   def balance
@@ -74,5 +72,25 @@ class User < ActiveRecord::Base
     self.account.available -= amount
     self.account.frozen_value += amount
     return bet
+  end
+
+  def won_bet(bet)
+    debugger
+    raise 'invalid bet' unless bet.user == self
+    chips = bet.amount * bet.gamble_item.odds
+    self.account.available += chips
+    self.account.frozen_value -= bet.amount
+    self.account.save
+    self.save
+    return chips
+  end
+
+  def lost_bet(bet)
+    debugger
+    raise 'invalid bet' unless bet.user == self
+    self.account.frozen_value -= bet.amount
+    self.account.save
+    self.save
+    return - bet.amount
   end
 end

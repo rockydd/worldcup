@@ -56,7 +56,9 @@
             </ul>
             <ul class="nav pull-right">
               <% if user_signed_in? %>
+                <% account = current_user.account %>
                 <li><%= link_to current_user.email, "/users/me" %></li>
+                <li><%= link_to raw(UsersHelper.account_summary(account)), "/users/me"%></li>
                 <li>
                     <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
                 </li>
@@ -99,7 +101,7 @@
               <ul class="nav nav-list">
                 <% top_10 = User.top_10 %>
                 <% top_10.each_with_index do|user,i| %>
-                  <li><%= "#{i+1}. #{user.email} #{user.balance}" %></li>
+                  <li><%= "#{i+1}. #{user.email} #{user.balance.round(2)}" %></li>
                 <% end%>
               </ul>
             </div><!--/.well -->

@@ -4,10 +4,11 @@
 </div>
 <% @games.each do |game| %>
   <div>
-    <%= image_tag game.host.avatar.url(:thumb) %>
+    <%= game.date %>
+    <%= image_tag game.host.avatar.url(:thumb), :width => 50%>
     <span>VS</span>
-    <%= image_tag game.guest.avatar.url(:thumb) %>
-    <span><%= link_to "Guess", game_path(game) %></span>
+    <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
+    <span><%= link_to "Bet", game_path(game) %></span>
   </div>
 <% end%>
 

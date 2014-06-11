@@ -10,6 +10,10 @@ class GambleItem < ActiveRecord::Base
     gamble.total_chips / chips
   end
 
+  def win?
+    win
+  end
+
   def chips
     bets.inject(0){|t,b| t + b.amount}
   end
