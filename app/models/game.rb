@@ -14,8 +14,7 @@ class Game < ActiveRecord::Base
   before_save :create_gamble
   after_save :update_gamble
 
-  def initializedd(params)
-    debugger
+  def initialize(params)
     @host_win_odds = params.delete(:host_win_odds)
     @draw_odds = params.delete(:draw_odds)
     @guest_win_odds = params.delete(:guest_win_odds)
@@ -50,9 +49,7 @@ class Game < ActiveRecord::Base
 
   private
   def create_gamble
-    debugger
     if self.gamble.nil?
-      debugger
       dealer = User.find_dealer
       self.gamble=Gamble.create(:status => Gamble::STATUS_OPEN, :gamble_type => 'match')
       self.bet_for_win = GambleItem.create(:description => "#{host.name} win", :odds => @host_win_odds)

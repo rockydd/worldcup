@@ -50,6 +50,11 @@ gem 'role_model'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 gem 'paperclip', "~> 4.1"
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+end
+
 group :test do
   gem 'rspec-rails'
 end
