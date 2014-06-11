@@ -11,10 +11,12 @@ class Game < ActiveRecord::Base
   belongs_to :bet_for_draw, :class_name => GambleItem
   belongs_to :bet_for_lose, :class_name => GambleItem
 
+  attr_accessor :host_win_odds, :draw_odds, :guest_win_odds
+
   before_save :create_gamble
   after_save :update_gamble
 
-  def initialize(params)
+  def initialize(params={})
     @host_win_odds = params.delete(:host_win_odds)
     @draw_odds = params.delete(:draw_odds)
     @guest_win_odds = params.delete(:guest_win_odds)
@@ -24,6 +26,18 @@ class Game < ActiveRecord::Base
     [self.bet_for_win, self.bet_for_draw, self.bet_for_lose]
   end
 
+  def host_win_odds
+    return nil if self.bet_for_win.nil?
+    self.bet_for_win.odds
+  end
+  def draw_odds
+    return nil if self.bet_for_draw.nil?
+    self.bet_for_draw.odds
+  end
+  def guest_win_odds
+    return nil if self.bet_for_lose.nil?
+    self.bet_for_lose.odds
+  end
   def bet_desc_for_host
     "#{host.name} win"
   end
