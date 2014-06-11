@@ -63,7 +63,6 @@ class Game < ActiveRecord::Base
   def update_gamble
     begin
       if self.ended?
-        debugger
         update_gamble_items
         gamble.pay_up
       end

@@ -71,11 +71,11 @@ class User < ActiveRecord::Base
     end
     self.account.available -= amount
     self.account.frozen_value += amount
+    self.account.save
     return bet
   end
 
   def won_bet(bet)
-    debugger
     raise 'invalid bet' unless bet.user == self
     chips = bet.amount * bet.gamble_item.odds
     self.account.available += chips
@@ -86,7 +86,6 @@ class User < ActiveRecord::Base
   end
 
   def lost_bet(bet)
-    debugger
     raise 'invalid bet' unless bet.user == self
     self.account.frozen_value -= bet.amount
     self.account.save
