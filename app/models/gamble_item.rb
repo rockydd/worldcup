@@ -6,10 +6,6 @@ class GambleItem < ActiveRecord::Base
     "#{description}(#{odds.round(2)})"
   end
 
-  def odds
-    gamble.total_chips / chips
-  end
-
   def win?
     win
   end

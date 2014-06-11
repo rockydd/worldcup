@@ -51,5 +51,5 @@ gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 gem 'paperclip', "~> 4.1"
 group :test do
-  gem 'rspec'
+  gem 'rspec-rails'
 end
