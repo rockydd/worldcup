@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     users = User.where.not(email: DEALER_EMAIL)
   end
   def self.top_10
-    regular_user.sort{|u1, u2| - u1.balance <=> u2.balance }[0,9]
+    regular_user.sort{|u1, u2| - (u1.balance <=> u2.balance) }[0,9]
   end
 
   def balance
