@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  load_and_authorize_resource
   before_action :authenticate_user!, only:[:edit, :new, :create, :update, :destroy]
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
@@ -28,6 +29,7 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.new(game_params)
+    authorize! :create, @game
 
     respond_to do |format|
       if @game.save
@@ -72,6 +74,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:date, :host_id, :guest_id, :host_score, :guest_score, :status, :balance, :host_win_odds, :draw_odds, :guest_win_odds,)
+      params.require(:game).permit(:date, :host_id, :guest_id, :host_score, :guest_score, :status, :balance, :host_win_odds, :draw_odds, :guest_win_odds)
     end
 end

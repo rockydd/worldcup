@@ -12,6 +12,8 @@
   </div>
 <% end%>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_game_path,
-            :class => 'btn btn-primary' %>
+<% if can? :create, Game %>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+    new_game_path,
+    :class => 'btn btn-primary' %>
+<% end%>

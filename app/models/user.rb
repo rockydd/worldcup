@@ -2,7 +2,7 @@ require 'rubygems'
 require 'role_model'
 class User < ActiveRecord::Base
   INITIAL_BALANCE=1000
-  DEALER_EMAIL="system_dealer@gmail.com"
+  DEALER_EMAIL="worldcupdealer@gmail.com"
   DEALER_BALANCE=100000000
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -17,8 +17,13 @@ class User < ActiveRecord::Base
   before_save :set_default_role
   after_save :initial_account
 
+  def self.dealer_password
+    'password'
+    #:password => (0...8).map { (65 + rand(26)).chr }.join)
+  end
+
   def self.find_dealer
-    User.find_by_email(DEALER_EMAIL) || User.create(:email => DEALER_EMAIL, :password => (0...8).map { (65 + rand(26)).chr }.join)
+    User.find_by_email(DEALER_EMAIL) || User.create(:email => DEALER_EMAIL, :password => dealer_password, :roles_mask => 1)
   end
 
   def self.regular_user
@@ -63,6 +68,7 @@ class User < ActiveRecord::Base
     raise 'invalid bet chips' if amount < 1
     raise 'not enough chips' if amount > self.account.available
     raise 'invalid gamble' if gamble.nil? || gamble_item.nil? || gamble_item.gamble != gamble
+    raise 'gamble is closed' if gamble.closed?
 
     if bet=has_bet_on?(gamble_item)
       bet.update({:gamble_id => gamble.id, :gamble_item_id => gamble_item.id, :amount => bet.amount + amount})

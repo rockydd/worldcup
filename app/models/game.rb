@@ -3,6 +3,11 @@ class Game < ActiveRecord::Base
   STATUS_NOT_STARTED = 0
   STATUS_ON_GOING= 1
   STATUS_END = 2
+  STATUS_MAP={
+    STATUS_NOT_STARTED => "Not Started",
+    STATUS_ON_GOING => "OnGoing",
+    STATUS_END => "END"
+  }
 
   belongs_to :host, :class_name => Team
   belongs_to :guest, :class_name => Team
@@ -21,6 +26,10 @@ class Game < ActiveRecord::Base
     @draw_odds = params.delete(:draw_odds)
     @guest_win_odds = params.delete(:guest_win_odds)
     super(params)
+  end
+
+  def readable_status
+    STATUS_MAP[self.status]
   end
   def gamble_items
     [self.bet_for_win, self.bet_for_draw, self.bet_for_lose]

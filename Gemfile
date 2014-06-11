@@ -45,7 +45,7 @@ gem 'capistrano', group: :development
 gem 'debugger', group: [:development, :test]
 
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'role_model'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'

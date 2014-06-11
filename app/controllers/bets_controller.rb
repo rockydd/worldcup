@@ -32,12 +32,17 @@ class BetsController < ApplicationController
     amount = _params[:amount].to_f
 
     respond_to do |format|
-      if  @bet = current_user.bet_on(gamble, gamble_item, amount)
-        format.html { redirect_to game, notice: 'Bet was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @bet }
-      else
-        format.html { redirect_to game }
-        format.json { render json: @bet.errors, status: :unprocessable_entity }
+      begin
+        if  @bet = current_user.bet_on(gamble, gamble_item, amount)
+          format.html { redirect_to game, notice: 'Bet was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @bet }
+        else
+          format.html { redirect_to game }
+          format.json { render json: @bet.errors, status: :unprocessable_entity }
+        end
+      rescue => e
+        format.html { redirect_to game, :flash => {:error => e.message}}
+        format.json { render json: e.message, status: :unprocessable_entity }
       end
     end
   end
