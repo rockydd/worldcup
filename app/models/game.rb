@@ -54,15 +54,12 @@ class Game < ActiveRecord::Base
       self.gamble=Gamble.create(:status => Gamble::STATUS_OPEN, :gamble_type => 'match')
       self.bet_for_win = GambleItem.create(:description => "#{host.name} win", :odds => @host_win_odds)
       self.gamble.items << self.bet_for_win
-      dealer.bet_on(gamble, self.bet_for_win, DEALER_BET_CHIPS)
 
       self.bet_for_draw = GambleItem.create(:description => "draw", :odds => @draw_odds )
       self.gamble.items << self.bet_for_draw
-      dealer.bet_on(gamble, self.bet_for_draw, DEALER_BET_CHIPS)
 
       self.bet_for_lose = GambleItem.create(:description => "#{guest.name} win", :odds => @guest_win_odds)
       self.gamble.items << self.bet_for_lose
-      dealer.bet_on(gamble, self.bet_for_lose, DEALER_BET_CHIPS)
     end
   end
 

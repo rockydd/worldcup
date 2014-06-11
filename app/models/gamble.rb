@@ -32,17 +32,18 @@ class Gamble < ActiveRecord::Base
 
   def pay_up
     return nil if self.closed?
-    chips_balance = 0
+    chips = total_chips
     items.each do |item|
       item.bets.each do |bet|
-        chips_balance += bet.pay_up
+        c = bet.pay_up
+        chips -= c if item.win
       end
     end
     self.close
     #dealer will fill the balance gap
     dealer = User.find_dealer
-    dealer.account.available -= chips_balance
-    dealer.save
+    dealer.account.available += chips
+    dealer.account.save
 
   end
 end

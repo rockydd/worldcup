@@ -90,6 +90,6 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
-    return - bet.amount
+    return bet.amount
   end
 end
