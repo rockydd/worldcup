@@ -12,9 +12,17 @@
 
   <div class='game-summary center-box'>
     <%= image_tag @game.host.avatar.url(:thumb) %>
-    <span><%= @game.balance %></span>
+    <span>让<%= @game.balance.to_i %>球</span>
     <%= image_tag @game.guest.avatar.url(:thumb) %>
   </div>
+
+  <%if @game.ended?%>
+    <div class='center-box'>
+      <span class='score'><%= @game.host_score%></span>
+      <span class='score'>:</span>
+      <span class='score'><%= @game.guest_score%></span>
+    </div>
+  <% end%>
 
   <div class='game-bet center-box'>
     <div width="100px">
