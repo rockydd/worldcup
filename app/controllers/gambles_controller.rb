@@ -1,4 +1,5 @@
 class GamblesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_gamble, only: [:show, :edit, :update, :destroy]
 
   # GET /gambles

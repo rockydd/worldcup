@@ -33,6 +33,8 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_gamble_path,
-            :class => 'btn btn-primary' %>
+<% if can? :create, Team%>
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+    new_gamble_path,
+    :class => 'btn btn-primary' %>
+<%end%>
