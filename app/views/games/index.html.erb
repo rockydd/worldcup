@@ -12,6 +12,7 @@
       <span class='score'><%= game.host_score%></span>
       <span class='score'>:</span>
       <span class='score'><%= game.guest_score%></span>
+      <span class='big-link'><%= link_to "查看", game_path(game) %></span>
     <% else %>
       <span class='big-link'><%= link_to "投注", game_path(game) %></span>
     <% end%>
