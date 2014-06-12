@@ -51,14 +51,13 @@
             <ul class="nav">
               <li><%= link_to "Games", "/games"  %></li>
               <li><%= link_to "Teams", "/teams"  %></li>
-              <li><%= link_to "Rank", "/rank"  %></li>
               <li><%= link_to "BBS", "/bbs"  %></li>
             </ul>
             <ul class="nav pull-right">
               <% if user_signed_in? %>
                 <% account = current_user.account %>
-                <li><%= link_to current_user.email, "/users/me" %></li>
-                <li><%= link_to raw(UsersHelper.account_summary(account)), "/users/me"%></li>
+                <li><%= link_to current_user.email, "/games" %></li>
+                <li><%= link_to raw(UsersHelper.account_summary(account)), "/games"%></li>
                 <li>
                     <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %>
                 </li>

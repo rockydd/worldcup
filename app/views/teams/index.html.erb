@@ -16,6 +16,8 @@
         <td><%= image_tag team.avatar.url(:thumb) %> <%= link_to team.name, team_path(team) %></td>
         <td><%= team.external_link %></td>
         <td>
+          <% if can? :update, Team %>
+
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_team_path(team), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -23,6 +25,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
+                    <% end%>
         </td>
       </tr>
     <% end %>

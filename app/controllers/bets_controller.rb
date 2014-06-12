@@ -1,5 +1,5 @@
 class BetsController < ApplicationController
-  load_and_authorize_resource
+  #load_and_authorize_resource
   before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
   before_action :set_bet, only: [:show, :edit, :update, :destroy]
 
@@ -28,6 +28,14 @@ class BetsController < ApplicationController
   def create
     _params=bet_params
     game = Game.find(_params.delete(:game_id))
+    unless game.betable?
+      respond_to do |format|
+        format.html { redirect_to game, alert: "this game is not open for bet"}
+        format.json { render json: e.message, status: :unprocessable_entity }
+      end
+      return
+    end
+
     gamble = Gamble.find(_params[:gamble_id])
     gamble_item = GambleItem.find(_params[:gamble_item_id])
     amount = _params[:amount].to_f

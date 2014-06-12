@@ -58,6 +58,11 @@ class Game < ActiveRecord::Base
     status == STATUS_END
   end
 
+  #you can bet on the game until 1 hour before the game start
+  def betable?
+    status == STATUS_NOT_STARTED && self.date && (self.date - 1.hour) > Time.now
+  end
+
   def update_gamble_items
     return nil unless self.ended?
     case self.host_score + self.balance <=> self.guest_score
