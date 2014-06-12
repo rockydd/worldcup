@@ -20,3 +20,10 @@
 .money-frozen{
   color: gray;
 }
+.date{
+  font-weight: bold;
+}
+.big-link{
+  font-weight: bold;
+  font-size: 16px;
+}

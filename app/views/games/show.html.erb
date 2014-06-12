@@ -38,8 +38,13 @@
           <%= button_tag gamble_item.desc,
             data: {confirm: "Are you sure to bet on #{gamble_item.desc}?"}, class: "btn bet-button #{'btn-primary' if current_user and current_user.has_bet_on?(gamble_item)}" %>
           </div>
-          <% end %>
+          <ul style="display:none">
+            <% gamble_item.bets.each do |bet|%>
+              <li><%= bet.user.email%>:<%= bet.amount%></li>
+            <% end %>
+          </ul>
         <% end%>
+      <% end%>
     </div>
   </div>
 

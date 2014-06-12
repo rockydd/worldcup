@@ -3,12 +3,18 @@
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <% @games.each do |game| %>
-  <div>
-    <%= game.date %>
+  <div class='game-item'>
+    <span class='date'><%= game.date %></span>
     <%= image_tag game.host.avatar.url(:thumb), :width => 50%>
     <span>VS</span>
     <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
-    <span><%= link_to "Bet", game_path(game) %></span>
+    <% if game.ended?%>
+      <span class='score'><%= game.host_score%></span>
+      <span class='score'>:</span>
+      <span class='score'><%= game.guest_score%></span>
+    <% else %>
+      <span class='big-link'><%= link_to "Bet", game_path(game) %></span>
+    <% end%>
   </div>
 <% end%>
 
