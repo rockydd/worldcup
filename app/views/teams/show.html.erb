@@ -4,20 +4,11 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @team.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:external_link) %>:</strong></dt>
-  <dd><%= @team.external_link %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar_file_name) %>:</strong></dt>
-  <dd><%= @team.avatar_file_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar_content_type) %>:</strong></dt>
-  <dd><%= @team.avatar_content_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar_file_size) %>:</strong></dt>
-  <dd><%= @team.avatar_file_size %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:avatar_updated_at) %>:</strong></dt>
-  <dd><%= @team.avatar_updated_at %></dd>
+  <dt><strong><%= @team.name %></strong></dt>
+  <dd> <%= image_tag @team.avatar.url(:thumb)%></dd>
 </dl>
 
+<% if can? :update, Team%>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               teams_path, :class => 'btn'  %>
@@ -29,3 +20,4 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+<% end%>

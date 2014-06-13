@@ -80,13 +80,13 @@ class Game < ActiveRecord::Base
     if self.gamble.nil?
       dealer = User.find_dealer
       self.gamble=Gamble.create(:status => Gamble::STATUS_OPEN, :gamble_type => 'match')
-      self.bet_for_win = GambleItem.create(:description => "#{host.name} win", :odds => @host_win_odds)
+      self.bet_for_win = GambleItem.create(:description => "#{host.name} Win", :odds => @host_win_odds)
       self.gamble.items << self.bet_for_win
 
-      self.bet_for_draw = GambleItem.create(:description => "draw", :odds => @draw_odds )
+      self.bet_for_draw = GambleItem.create(:description => "Draw", :odds => @draw_odds )
       self.gamble.items << self.bet_for_draw
 
-      self.bet_for_lose = GambleItem.create(:description => "#{guest.name} win", :odds => @guest_win_odds)
+      self.bet_for_lose = GambleItem.create(:description => "#{guest.name} Win", :odds => @guest_win_odds)
       self.gamble.items << self.bet_for_lose
     end
   end

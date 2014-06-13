@@ -29,8 +29,10 @@ class User < ActiveRecord::Base
   def self.regular_user
     users = User.where.not(email: DEALER_EMAIL)
   end
-  def self.top_10
-    regular_user.sort{|u1, u2| - (u1.balance <=> u2.balance) }[0,9]
+  def self.top_10(user=nil)
+    sorted_users = regular_user.sort{|u1, u2| - (u1.balance <=> u2.balance) }
+    my_rank = user.nil? ? nil : sorted_users.find_index(user)
+    return sorted_users[0,10], my_rank
   end
 
   def balance
