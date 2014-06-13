@@ -8,6 +8,9 @@
     <%= image_tag game.host.avatar.url(:thumb), :width => 50%>
     <span>VS</span>
     <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
+    <span><%= game.host.name %></span>
+    <span>(<%= game.balance.to_i %>)</span>
+    <span><%= game.guest.name %></span>
     <% if game.ended?%>
       <span class='score'><%= game.host_score%></span>
       <span class='score'>:</span>
