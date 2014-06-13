@@ -6,18 +6,20 @@
   <div class='game-item'>
     <span class='date'><%= game.date %></span>
     <%= image_tag game.host.avatar.url(:thumb), :width => 50%>
-    <span>VS</span>
-    <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
-    <span><%= game.host.name %></span>
     <span>(<%= game.balance.to_i %>)</span>
-    <span><%= game.guest.name %></span>
+    <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
+    <span class='team-name'><%= game.host.name %></span>
+    <span>[胜<%= game.bet_for_win.odds.round(2)%>] </span>
+    <span>[平<%= game.bet_for_draw.odds.round(2)%>] </span>
+    <span>[负<%= game.bet_for_lose.odds.round(2)%>] </span>
+    <span class='team-name'><%= game.guest.name %></span>
     <% if game.ended?%>
       <span class='score'><%= game.host_score%></span>
       <span class='score'>:</span>
       <span class='score'><%= game.guest_score%></span>
-      <span class='big-link'><%= link_to "查看", game_path(game) %></span>
+      <span class='big-link pull-right'><%= link_to "查看", game_path(game) %></span>
     <% else %>
-      <span class='big-link'><%= link_to "投注", game_path(game) %></span>
+      <span class='big-link pull-right'><%= link_to "投注", game_path(game) %></span>
     <% end%>
   </div>
 <% end%>
