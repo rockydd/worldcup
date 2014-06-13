@@ -97,9 +97,13 @@
             <div class="well sidebar-nav">
               <h3>Top 10</h3>
               <ul class="nav nav-list">
-                <% top_10 = User.top_10 %>
+                <% me = current_user %>
+                <% top_10,myrank = User.top_10(me) %>
                 <% top_10.each_with_index do|user,i| %>
-                  <li><%= "#{i+1}. #{username_view(user.email)} #{user.balance.round(2)}" %></li>
+                  <li class='<%="myself" if user == me%>'><%= "#{i+1}. #{username_view(user.email)} #{user.balance.round(2)}" %></li>
+                <% end%>
+                <% if myrank and myrank > 9 %>
+                  <li class='myself'><%= "#{myrank+1}. #{username_view(me.email)} #{me.balance.round(2)}" %> </li>
                 <% end%>
               </ul>
             </div><!--/.well -->
