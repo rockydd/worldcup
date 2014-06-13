@@ -2,17 +2,29 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<table class='table table-striped game-item'>
 <% @games.each do |game| %>
-  <div class='game-item'>
-    <span class='date'><%= game.date %></span>
-    <%= image_tag game.host.avatar.url(:thumb), :width => 50%>
-    <span>(<%= game.balance.to_i %>)</span>
-    <%= image_tag game.guest.avatar.url(:thumb), :width => 50 %>
-    <span class='team-name'><%= game.host.name %></span>
-    <span>[胜<%= game.bet_for_win.odds.round(2)%>] </span>
-    <span>[平<%= game.bet_for_draw.odds.round(2)%>] </span>
-    <span>[负<%= game.bet_for_lose.odds.round(2)%>] </span>
-    <span class='team-name'><%= game.guest.name %></span>
+  <tr>
+    <td class='date w200'><%= date_view(game.date) %></td>
+
+    <td style="text-align:center">
+      <p><%= image_tag game.host.avatar.url(:thumb), :width => 50%><p>
+      <p><%= game.host.name %><p>
+    </td>
+    <td>
+      (<%= game.balance.to_i %>)
+    </td>
+    <td style="text-align:center">
+      <p><%= image_tag game.guest.avatar.url(:thumb), :width => 50 %></p>
+      <p class='team-name'><%= game.guest.name %></p>
+    </td>
+
+    <td>
+      <span>[胜<%= game.bet_for_win.odds.round(2)%>] </span>
+      <span>[平<%= game.bet_for_draw.odds.round(2)%>] </span>
+      <span>[负<%= game.bet_for_lose.odds.round(2)%>] </span>
+    </td>
+    <td>
     <% if game.ended?%>
       <span class='score'><%= game.host_score%></span>
       <span class='score'>:</span>
@@ -21,8 +33,10 @@
     <% else %>
       <span class='big-link pull-right'><%= link_to "投注", game_path(game) %></span>
     <% end%>
-  </div>
+    </td>
+  </tr>
 <% end%>
+</table>
 
 <% if can? :create, Game %>
   <%= link_to t('.new', :default => t("helpers.links.new")),
