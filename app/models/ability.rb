@@ -7,7 +7,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.player?
-      can :create, :bet
+      can :create, Bet
       can :read, :all
     else
       can :read, :all
