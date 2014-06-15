@@ -6,17 +6,20 @@ class BetsController < ApplicationController
   # GET /bets
   # GET /bets.json
   def index
-    @bets = Bet.all
+    me = current_user
+    if me.nil?
+      @bets = []
+    elsif me.is_dealer?
+      @bets = Bet.all
+    else
+      @bets = me.bets
+    end
+
   end
 
   # GET /bets/1
   # GET /bets/1.json
   def show
-  end
-
-  # GET /bets/new
-  def new
-    @bet = Bet.new
   end
 
   # GET /bets/1/edit
