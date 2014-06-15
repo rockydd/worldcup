@@ -13,6 +13,7 @@ class Bet < ActiveRecord::Base
   validates :gamble_item, presence:  true
   validates_associated :gamble
   validates_with BetValidator
+  attr_accessor :game_id
 
   def bet_on
     gamble_item

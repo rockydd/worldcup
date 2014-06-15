@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   def self.dole
-    poors = Account.where("available < ?", 100).where("frozen_value < ?", 0.0000001)
+    poors = Account.where("available < ?", 100).where("frozen_value < ?", 1)
     poors.each do|account|
       account.available=100
       account.save

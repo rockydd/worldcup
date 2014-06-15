@@ -52,4 +52,18 @@ RSpec.describe Game, :type => :model do
     expect(dealer.balance).to eq User::DEALER_BALANCE + (300-180)
   end
 
+  it "should get the bet for the game" do
+
+    game=Game.create(:host_id => @brazil.id, :guest_id => @argentina.id, :host_win_odds => 1.8, :draw_odds => 2.7, :guest_win_odds => 3.8, :balance => 1)
+    user1 = create(:user)
+    user2 = create(:user)
+    user1.bet_on(game.gamble, game.bet_for_win, 123)
+    user1.bet_on(game.gamble, game.bet_for_win, 222)
+    user2.bet_on(game.gamble, game.bet_for_lose, 345)
+
+    expect(game.bet_for_win.bet_count).to eq 1
+    expect(game.bet_for_draw.bet_count).to eq 0
+    expect(game.bet_for_lose.bet_count).to eq 1
+  end
+
 end

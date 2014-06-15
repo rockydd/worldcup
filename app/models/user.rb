@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
       bet.update({:gamble_id => gamble.id, :gamble_item_id => gamble_item.id, :amount => bet.amount + amount})
     else
       bet = Bet.create({:gamble_id => gamble.id, :gamble_item_id => gamble_item.id, :amount => amount, :user_id => self.id})
+      self.bets<<bet
     end
     self.account.available -= amount
     self.account.frozen_value += amount

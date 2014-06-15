@@ -13,4 +13,8 @@ class GambleItem < ActiveRecord::Base
   def chips
     bets.inject(0){|t,b| t + b.amount}
   end
+
+  def bet_count
+    bets.size
+  end
 end
