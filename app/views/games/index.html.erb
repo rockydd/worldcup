@@ -9,7 +9,7 @@
 
     <td style="text-align:center">
       <p><%= image_tag game.host.avatar.url(:thumb), :width => 50%><p>
-      <p><%= game.host.name %><p>
+      <p class='team-name'><%= game.host.name %><p>
     </td>
     <td>
       (<%= game.balance.to_i %>)

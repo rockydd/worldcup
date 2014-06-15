@@ -60,7 +60,7 @@ class Game < ActiveRecord::Base
 
   #you can bet on the game until 1 hour before the game start
   def betable?
-    status == STATUS_NOT_STARTED && self.date && (self.date - 1.hour) > Time.now
+    status == STATUS_NOT_STARTED && self.date && (self.date - 5.minutes) > Time.now
   end
 
   def update_gamble_items

@@ -54,5 +54,11 @@ span.odds .bet-count{
 .mybet{
   color: #006dcc;
 }
+.mybet.win{
+  color: green;
+}
+.mybet.lose{
+  color: red;
+}
 
 
