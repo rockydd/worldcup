@@ -8,7 +8,7 @@ module GamesHelper
 
     items=[[:win, game.bet_for_win],[:draw, game.bet_for_draw], [:lose, game.bet_for_lose]].map do|item|
       guess=t("games."+item[0].to_s, :locale => :zh)
-      peoplebet=t("games.people")+t("games.bet", :local => :zh)
+      peoplebet=t("games.people", :locale => :zh)+t("games.bet", :locale => :zh)
       bet_item=item[1]
 
       mybet = user.has_bet_on?(bet_item) if user
