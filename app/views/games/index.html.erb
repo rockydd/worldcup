@@ -20,9 +20,7 @@
     </td>
 
     <td>
-      <span>[胜<%= game.bet_for_win.odds.round(2)%>] </span>
-      <span>[平<%= game.bet_for_draw.odds.round(2)%>] </span>
-      <span>[负<%= game.bet_for_lose.odds.round(2)%>] </span>
+      <%= raw odds_view_for_game(game, current_user) %><br/>
     </td>
     <td>
     <% if game.ended?%>
