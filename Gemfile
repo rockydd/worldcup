@@ -60,3 +60,4 @@ group :test do
 end
 
 gem 'scheduler_daemon'
+gem 'whenever'
