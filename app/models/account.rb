@@ -19,9 +19,11 @@ class Account < ActiveRecord::Base
       frozen_value = account.frozen_value
       available = account.available
       if frozen_value/(frozen_value+available) < TAX_THRESHOLD and not account.taxed_in_last_cycle?
+        user=account.user
+        next if user and user.is_dealer?
         tax_money = available*TAX_RATIO
         account.available -= tax_money
-        if user=account.user
+        if user
           logger.info "#{user.email} is taxed for #{tax_money}"
         end
         account.last_tax_time=Time.now
