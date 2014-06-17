@@ -1,0 +1,33 @@
+<h1>Listing account_logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Change</th>
+      <th>Source</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @account_logs.each do |account_log| %>
+      <tr>
+        <td><%= account_log.account_id %></td>
+        <td><%= account_log.change %></td>
+        <td><%= account_log.source %></td>
+        <td><%= account_log.description %></td>
+        <td><%= link_to 'Show', account_log %></td>
+        <td><%= link_to 'Edit', edit_account_log_path(account_log) %></td>
+        <td><%= link_to 'Destroy', account_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account log', new_account_log_path %>

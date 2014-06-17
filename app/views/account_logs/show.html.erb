@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @account_log.account_id %>
+</p>
+
+<p>
+  <strong>Change:</strong>
+  <%= @account_log.change %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @account_log.source %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @account_log.description %>
+</p>
+
+<%= link_to 'Edit', edit_account_log_path(@account_log) %> |
+<%= link_to 'Back', account_logs_path %>
