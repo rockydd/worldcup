@@ -36,7 +36,7 @@ class Account < ActiveRecord::Base
           msg = "#{user.email} is taxed for #{tax_money}"
           logger.info msg
         end
-        AccountLog.create(account_id: account.id, change: -tax_money, source:AccountLog::TAX, description: "taxed #{tax_money}")
+        AccountLog.create(account_id: account.id, change: -tax_money, source:AccountLog::TAX, description: "was taxed by #{tax_money}")
         account.last_tax_time=Time.now
         account.save
       end
@@ -52,6 +52,22 @@ class Account < ActiveRecord::Base
     self.available + self.frozen_value
   end
   alias :total :balance
+
+  def profit_rate_today
+    logs=AccountLog.where("created_at > ? and account_id = ?", Date.today.to_time, self.id)
+    change=logs.map{|l|l.change||0}.sum
+    origin = self.balance-change
+    return 0 if origin == 0
+    profit=logs.select{|l| l.is_bet?}.map{|l|l.change}.sum
+    rate=profit/origin
+    rate.to_f
+  end
+
+  def balance_at_a_day_ago
+    logs=AccountLog.where("created_at > ? and account_id = ?", 1.day.ago, self.id)
+    change=logs.map{|l|l.change || 0}.sum
+    self.balance-change
+  end
 
 
 end

@@ -1,33 +1,32 @@
-<%= form_for(@account_log) do |f| %>
-  <% if @account_log.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@account_log.errors.count, "error") %> prohibited this account_log from being saved:</h2>
-
-      <ul>
-      <% @account_log.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @account_log, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :account_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :account_id, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :change, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :change, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :source, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :source, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :description, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :account_id %><br>
-    <%= f.number_field :account_id %>
-  </div>
-  <div class="field">
-    <%= f.label :change %><br>
-    <%= f.text_field :change %>
-  </div>
-  <div class="field">
-    <%= f.label :source %><br>
-    <%= f.number_field :source %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                account_logs_path, :class => 'btn' %>
   </div>
 <% end %>

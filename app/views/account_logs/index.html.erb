@@ -1,33 +1,32 @@
-<h1>Listing account_logs</h1>
-
-<table>
+<%- model_class = AccountLog -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Account</th>
-      <th>Change</th>
-      <th>Source</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:account_id) %></th>
+      <th><%= model_class.human_attribute_name(:change) %></th>
+      <th><%= model_class.human_attribute_name(:source) %></th>
+      <th><%= model_class.human_attribute_name(:description) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @account_logs.each do |account_log| %>
       <tr>
-        <td><%= account_log.account_id %></td>
+        <td><%= link_to account_log.id, account_log_path(account_log) %></td>
+        <td><%= account_log.user.email%></td>
         <td><%= account_log.change %></td>
         <td><%= account_log.source %></td>
         <td><%= account_log.description %></td>
-        <td><%= link_to 'Show', account_log %></td>
-        <td><%= link_to 'Edit', edit_account_log_path(account_log) %></td>
-        <td><%= link_to 'Destroy', account_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l account_log.created_at %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Account log', new_account_log_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_account_log_path,
+            :class => 'btn btn-primary' %>

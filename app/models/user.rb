@@ -41,6 +41,12 @@ class User < ActiveRecord::Base
     return sorted_users[0,10], my_rank
   end
 
+  #list top 3 which has the highest profit rate
+  def self.top_cola
+    #TODO need location for user to get the list for shanghai and suzhou
+
+  end
+
   def balance
     self.save unless self.account
     self.account.available + self.account.frozen_value
