@@ -27,7 +27,12 @@
   <div class='game-bet center-box'>
     <div width="100px">
       <% @bet = Bet.new %>
+      <table>
+      
+        <tr>
+        
       <% @game.gamble_items.each do |gamble_item| %>
+        <td>
         <% me = current_user %>
         <%@my_bet = me.has_bet_on?(gamble_item) if me%>
         <%= form_for @bet, :html => { :id => 'form_host_win', :class => 'bet-form'} do |f| %>
@@ -35,32 +40,36 @@
           <%= f.hidden_field :gamble_id, :value => @gamble.id %>
           <%= f.hidden_field :gamble_item_id, :value => gamble_item.id%>
           <div class='bet-field'>
-          <%= f.number_field :amount, :class=> 'bet-box', :value => @my_bet && @my_bet.amount || default_bet_chips(me)%>
+          <%= f.number_field :amount, :class=> 'bet-box', :value => default_bet_chips(me)%>
           <%= button_tag gamble_item.desc,
             data: {confirm: "Are you sure to bet on #{gamble_item.desc}?"}, class: "btn bet-button #{'btn-primary' if me and me.has_bet_on?(gamble_item)}" %>
+
           </div>
-          <ul style="display:none">
-            <% gamble_item.bets.each do |bet|%>
-              <li><%= bet.user.email%>:<%= bet.amount%></li>
-            <% end %>
-          </ul>
         <% end%>
+        <br>
+        <%if(@my_bet) %>
+          <%= t('games.you_have_bet', :locale => :zh)%> <span class='mybet'><%= @my_bet.amount%></span>
+          <% end%>
+      </td>
       <% end%>
+
+        </tr>
+      </table>
     </div>
   </div>
 
   <hr></hr>
 
-  <% if can? :update, @game%>
-<div class="form-actions">
+<div class="">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               games_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_game_path(@game), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              game_path(@game),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <% if can? :update, @game%>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+      edit_game_path(@game), :class => 'btn' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        game_path(@game),
+        :method => 'delete',
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+        :class => 'btn btn-danger' %>
+  <% end %>
 </div>
-<% end %>
