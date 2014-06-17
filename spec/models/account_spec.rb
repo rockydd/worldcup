@@ -1,7 +1,9 @@
 require 'rails_helper'
-
+require 'util'
+include Util
 RSpec.describe Account, :type => :model do
   it "should dole to account whose funds less than 100 and no frozen values" do
+    expect([nil,100]).to include(get_value_from_config("dole_value"))
     ac1=Account.create(:available => 200, :frozen_value => 100)
     ac2=Account.create(:available => 55, :frozen_value => 2)
     ac3=Account.create(:available => 0, :frozen_value => 100)
@@ -22,9 +24,15 @@ RSpec.describe Account, :type => :model do
       ac4.reload
       expect(ac4.available).to eq 100
       expect(ac4.frozen_value).to eq 0
+      expect(ac4.logs[-1].change).to eq 56
+      expect(ac4.logs[-1].source).to eq AccountLog::DOLE
+      expect(ac4.logs.size).to eq 1
       ac5.reload
       expect(ac5.available).to eq 100
       expect(ac5.frozen_value).to eq 0
+      expect(ac5.logs[-1].change).to eq 96
+      expect(ac5.logs[-1].source).to eq AccountLog::DOLE
+      expect(ac5.logs.size).to eq 1
     end
   end
 

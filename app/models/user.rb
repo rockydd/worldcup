@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'role_model'
+require 'util'
 class User < ActiveRecord::Base
   INITIAL_BALANCE=1000
   DEALER_EMAIL="worldcupdealer@gmail.com"
@@ -12,16 +13,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   include RoleModel
+  extend Util
   roles_attribute :roles_mask
   roles :admin, :player, :guest
   before_save :set_default_role
   after_save :initial_account
 
   def self.initial_balance
-    config_file=::Rails.root.join('config','worldcup.yml')
-    config={}
-    config=YAML::load File.open config_file if File.exists? config_file
-    initial_balance=config["user_initial_balance"] || INITIAL_BALANCE
+    get_value_from_config("user_initial_balance") ||  INITIAL_BALANCE
   end
 
   def self.dealer_password

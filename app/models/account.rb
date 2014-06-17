@@ -1,4 +1,7 @@
+require 'util'
+
 class Account < ActiveRecord::Base
+  extend Util
   TAX_CYCLE=23.hours
   TAX_THRESHOLD=0.5
   TAX_RATIO = 0.10
@@ -6,10 +9,15 @@ class Account < ActiveRecord::Base
   has_many :logs, :class_name => AccountLog
 
   def self.dole
-    poors = Account.where("available < ?", 100).where("frozen_value < ?", 1)
+    dole_value = get_value_from_config("dole_value")||100
+    poors = Account.where("available < ?", dole_value).where("frozen_value < ?", 1)
     poors.each do|account|
-      account.available=100
+      change=dole_value-account.available
+      account.available=dole_value
       account.save
+      #create a change log
+      AccountLog.create(account_id: account.id, change: change, source:AccountLog::DOLE, description: "get dole of #{change}")
+
     end
   end
   def self.tax
