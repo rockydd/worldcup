@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Account, :type => :model do
-  it "should pay salary to account whose funds less than 100 and no frozen values" do
+  it "should dole to account whose funds less than 100 and no frozen values" do
     ac1=Account.create(:available => 200, :frozen_value => 100)
     ac2=Account.create(:available => 55, :frozen_value => 2)
     ac3=Account.create(:available => 0, :frozen_value => 100)

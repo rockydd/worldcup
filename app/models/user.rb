@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'role_model'
 class User < ActiveRecord::Base
-  INITIAL_BALANCE=900
+  INITIAL_BALANCE=1000
   DEALER_EMAIL="worldcupdealer@gmail.com"
   DEALER_BALANCE=100000000
   # Include default devise modules. Others available are:
@@ -16,6 +16,13 @@ class User < ActiveRecord::Base
   roles :admin, :player, :guest
   before_save :set_default_role
   after_save :initial_account
+
+  def self.initial_balance
+    config_file=::Rails.root.join('config','worldcup.yml')
+    config={}
+    config=YAML::load File.open config_file if File.exists? config_file
+    initial_balance=config["user_initial_balance"] || INITIAL_BALANCE
+  end
 
   def self.dealer_password
     'password'
@@ -50,7 +57,7 @@ class User < ActiveRecord::Base
 
   def initial_account
     unless self.account
-      self.account = Account.create(:available => is_dealer? ? DEALER_BALANCE : INITIAL_BALANCE,:frozen_value => 0)
+      self.account = Account.create(:available => is_dealer? ? DEALER_BALANCE : User.initial_balance,:frozen_value => 0)
     end
   end
 
@@ -91,6 +98,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
+    AccountLog.create(account_id: self.account.id, change: chips-bet.amount, source:AccountLog::BET, description: "won #{chips-bet.amount}")
     return chips
   end
 
@@ -99,6 +107,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
+    AccountLog.create(account_id: self.account.id, change: -bet.amount, source:AccountLog::BET, description: "lost #{bet.amount}")
     return bet.amount
   end
 

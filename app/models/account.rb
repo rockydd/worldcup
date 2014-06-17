@@ -3,6 +3,7 @@ class Account < ActiveRecord::Base
   TAX_THRESHOLD=0.5
   TAX_RATIO = 0.10
   belongs_to :user
+  has_many :logs, :class_name => AccountLog
 
   def self.dole
     poors = Account.where("available < ?", 100).where("frozen_value < ?", 1)
@@ -24,7 +25,9 @@ class Account < ActiveRecord::Base
         tax_money = available*TAX_RATIO
         account.available -= tax_money
         if user
-          logger.info "#{user.email} is taxed for #{tax_money}"
+          msg = "#{user.email} is taxed for #{tax_money}"
+          logger.info msg
+          AccountLog.create(account_id: account.id, change: -tax_money, source:AccountLog::TAX, description: msg)
         end
         account.last_tax_time=Time.now
         account.save
