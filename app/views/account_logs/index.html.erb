@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:account_id) %></th>
       <th><%= model_class.human_attribute_name(:change) %></th>
       <th><%= model_class.human_attribute_name(:source) %></th>
@@ -16,7 +15,6 @@
   <tbody>
     <% @account_logs.each do |account_log| %>
       <tr>
-        <td><%= link_to account_log.id, account_log_path(account_log) %></td>
         <td><%= account_log.user.email%></td>
         <td><%= account_log.change %></td>
         <td><%= account_log.source %></td>
@@ -27,6 +25,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_account_log_path,
-            :class => 'btn btn-primary' %>

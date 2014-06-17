@@ -1,24 +1,11 @@
 class AccountLogsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_account_log, only: [:show, :edit, :update, :destroy]
 
   # GET /account_logs
   # GET /account_logs.json
   def index
     @account_logs = AccountLog.all
-  end
-
-  # GET /account_logs/1
-  # GET /account_logs/1.json
-  def show
-  end
-
-  # GET /account_logs/new
-  def new
-    @account_log = AccountLog.new
-  end
-
-  # GET /account_logs/1/edit
-  def edit
   end
 
   # POST /account_logs
