@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'role_model'
 class User < ActiveRecord::Base
-  INITIAL_BALANCE=1000
+  INITIAL_BALANCE=900
   DEALER_EMAIL="worldcupdealer@gmail.com"
   DEALER_BALANCE=100000000
   # Include default devise modules. Others available are:
@@ -100,5 +100,13 @@ class User < ActiveRecord::Base
     self.account.save
     self.save
     return bet.amount
+  end
+
+  def profit_rate(start_date, end_date=Time.now)
+    mybets=self.bets.select{|bet|bet.created_at > start_date and bet.created_at < end_date}
+    profit = mybets.map{|b|b.profit}.sum
+    origin_value = self.balance-profit
+    return 0 if origin_value.zero?
+    return profit/origin_value
   end
 end

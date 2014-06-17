@@ -19,6 +19,18 @@ class Bet < ActiveRecord::Base
     gamble_item
   end
 
+  def profit
+    item=self.gamble_item
+    case item.win?
+    when true
+      return self.amount * (item.odds - 1)
+    when false
+      return - self.amount
+    else
+      return 0
+    end
+  end
+
   def pay_up
     if self.gamble_item.win?
       return self.user.won_bet(self)
