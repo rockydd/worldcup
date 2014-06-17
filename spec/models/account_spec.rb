@@ -61,6 +61,8 @@ RSpec.describe Account, :type => :model do
       ac4.reload
       expect(ac4.available).to eq 900
       expect(ac4.frozen_value).to eq 0
+      expect(ac4.logs[-1].change).to eq -100
+      expect(ac4.logs[-1].source).to eq AccountLog::TAX
       ac5.reload
       expect(ac5.available).to eq 0
       expect(ac5.frozen_value).to eq 100

@@ -35,8 +35,8 @@ class Account < ActiveRecord::Base
         if user
           msg = "#{user.email} is taxed for #{tax_money}"
           logger.info msg
-          AccountLog.create(account_id: account.id, change: -tax_money, source:AccountLog::TAX, description: msg)
         end
+        AccountLog.create(account_id: account.id, change: -tax_money, source:AccountLog::TAX, description: "taxed #{tax_money}")
         account.last_tax_time=Time.now
         account.save
       end
