@@ -45,7 +45,6 @@ class Bet < ActiveRecord::Base
     begin
       gamble = self.gamble
       game=Game.find_by_gamble_id(gamble.id)
-      debugger
       return game.betable?
     rescue
       return false

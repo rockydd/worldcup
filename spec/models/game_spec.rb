@@ -87,6 +87,7 @@ RSpec.describe Game, :type => :model do
     expect{user1.bet_on(game.gamble, game.bet_for_win, 100)}.to change(user1.account, :available).by(-100)
     game.host_score=1
     game.guest_score=2
+    game.status=2
     game.save
     expect(bet.cancellable?).to be false
 

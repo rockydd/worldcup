@@ -1,0 +1,14 @@
+
+<% top_list,my_rank, my_number = User.send(method, top_count, me) %>
+<ul class="nav nav-list">
+  <% top_list.each_with_index do|item,i| %>
+    <!-- data[0] is user, data[1] is the sorted number-->
+    <% user = item[:user]%>
+    <% number = item[:number]%>
+    <% number = self.send(formatter, number) if formatter %>
+    <li class='<%="myself" if user == me%>'><%= "#{i+1}. #{username_view(user.email)} " %><span class='pull-right'><%= number%></span></li>
+  <% end%>
+  <% if my_rank and my_rank > top_count - 1 %>
+    <li class='myself'><%= "#{my_rank+1}. #{username_view(me.email)} " %><span class='pull-right'><%= my_number%></span> </li>
+  <% end%>
+</ul>
