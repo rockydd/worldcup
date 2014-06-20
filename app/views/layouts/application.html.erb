@@ -35,6 +35,7 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"></link>
   </head>
   <body>
 
@@ -49,7 +50,7 @@
           <a class="brand" href="#">WorldCup</a>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Games", "/games"  %></li>
+              <li><%= link_to raw("<i class='fa fa-leaf'></i>Games"), "/games"  %></li>
               <li><%= link_to "Teams", "/teams"  %></li>
             </ul>
             <ul class="nav pull-right">

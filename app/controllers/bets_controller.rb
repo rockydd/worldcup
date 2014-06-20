@@ -76,10 +76,27 @@ class BetsController < ApplicationController
   # DELETE /bets/1
   # DELETE /bets/1.json
   def destroy
-    @bet.destroy
-    respond_to do |format|
-      format.html { redirect_to bets_url }
-      format.json { head :no_content }
+    redir_url=params[:origin] || games_url
+    if not can? :destroy, @bet || current_user != @bet.user
+    #if not user_signed_in? || 
+      respond_to do |format|
+        msg = t('games.no_priviledge_to_delete_bet', :locale => :zh)
+        format.html { redirect_to redir_url, :flash => {:error => msg}}
+        format.json { render json: msg, status: :unprocessable_entity }
+        return
+      end
+    end
+
+    if @bet.destroy
+      respond_to do |format|
+        format.html { redirect_to redir_url}
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to redir_url, :flash => {:error => @bet.errors.messages[:base]}}
+        format.json { render json: @bet.errors, status: :unprocessable_entity }
+      end
     end
   end
 

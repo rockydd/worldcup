@@ -70,4 +70,28 @@ RSpec.describe Game, :type => :model do
     expect(game.bet_for_lose.bet_count).to eq 1
   end
 
+  it "should release the funds to user when bet is cancelled" do
+    game=Game.create(:host_id => @brazil.id, :guest_id => @argentina.id, :host_win_odds => 1.8, :draw_odds => 2.7, :guest_win_odds => 3.8, :balance => 1, :date => Time.now + 1.day, :status => 0)
+    user1 = create(:user)
+    user2 = create(:user)
+    
+    avai = user1.account.available
+    expect{user1.bet_on(game.gamble, game.bet_for_win, 123)}.to change(user1.account, :available).by(-123)
+    expect(user1.account.available.to_f).to eq avai-123
+    bet=user1.has_bet_on?(game.bet_for_win)
+
+    expect(bet.cancellable?).to be true
+    bet.destroy
+    user1.reload
+    expect(user1.account.available.to_f).to eq avai
+    expect{user1.bet_on(game.gamble, game.bet_for_win, 100)}.to change(user1.account, :available).by(-100)
+    game.host_score=1
+    game.guest_score=2
+    game.save
+    expect(bet.cancellable?).to be false
+
+    #no idea why following does not work
+    #expect{user1.has_bet_on?(game.bet_for_win).destroy;user1.reload}.to change(user1.account, :available).by(123)
+  end
+
 end

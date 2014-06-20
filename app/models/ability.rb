@@ -8,6 +8,7 @@ class Ability
       can :manage, :all
     elsif user.player?
       can :create, Bet
+      can :destroy, Bet
       can :read, :all
     else
       can :read, :all

@@ -49,6 +49,16 @@
         <br>
         <%if(@my_bet) %>
           <%= t('games.you_have_bet', :locale => :zh)%> <span class='mybet'><%= @my_bet.amount%></span>
+          <% if @game.betable? || true%> 
+          <%= link_to(
+                       bet_path(@my_bet, :origin=> game_path(@game)),
+              :method => 'delete',
+              :data => { :confirm => t('games.delete_bet_confirm', :locale => :zh)},
+              :class => 'danger') do%>
+                <i class='fa fa-trash-o'></i>
+              <% end %>
+            <% end%>
+
           <% end%>
       </td>
       <% end%>

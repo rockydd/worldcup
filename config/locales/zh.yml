@@ -6,6 +6,8 @@ zh:
     people: 人
     bet: 投注
     you_have_bet: 你已投注
+    delete_bet_confirm: 确定取消这次投注吗？
+    no_priviledge_to_delete_bet: 你无法取消这次投注。
   date:
     abbr_day_names:
     - 日

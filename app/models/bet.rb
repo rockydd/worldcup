@@ -14,6 +14,7 @@ class Bet < ActiveRecord::Base
   validates_associated :gamble
   validates_with BetValidator
   attr_accessor :game_id
+  before_destroy :return_funds
 
   def bet_on
     gamble_item
@@ -37,5 +38,28 @@ class Bet < ActiveRecord::Base
     else
       return self.user.lost_bet(self)
     end
+  end
+
+  #check if this can be cancelled
+  def cancellable?
+    begin
+      gamble = self.gamble
+      game=Game.find_by_gamble_id(gamble.id)
+      debugger
+      return game.betable?
+    rescue
+      return false
+    end
+  end
+
+  def return_funds
+    unless self.cancellable?
+      errors.add :base, "cannot cancel this bet"
+      return false
+    end
+    ac = self.user.account
+    ac.frozen_value -= self.amount
+    ac.available += self.amount
+    ac.save
   end
 end
