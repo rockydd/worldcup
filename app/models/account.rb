@@ -43,6 +43,15 @@ class Account < ActiveRecord::Base
     end
   end
 
+  def self.refund_of_duty(time)
+    logs=AccountLog.where("created_at > ? and source = ?", time, AccountLog::TAX)
+    logs.each do |log|
+      log.account.available -= log.change
+      log.account.save
+      AccountLog.create(account_id: log.account.id, change: -log.change, source:AccountLog::TAX_REFUND, description: "was refunded by #{- log.change}")
+    end
+  end
+
   def taxed_in_last_cycle?
     return false if self.last_tax_time.nil?
     return (self.last_tax_time + TAX_CYCLE )> Time.now
