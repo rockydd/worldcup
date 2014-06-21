@@ -38,14 +38,16 @@ class User < ActiveRecord::Base
   def self.top_10(count=10,user=nil)
     users = regular_user.map{|u| {user: u, number: u.balance}}.sort{|a,b| a[:number]<=> b[:number]}.reverse
     my_rank = user.nil? ? nil : users.find_index{|item| item[:user] == user}
-    return users[0,count], my_rank, users[my_rank][:number]
+    my_number = my_rank.nil? ? nil : users[my_rank][:number]
+    return users[0,count], my_rank, my_number
   end
 
   #list top 3 which has the highest profit rate
   def self.top_cola(count = 10, user=nil)
     colas  = regular_user.map{|u| {user: u, number: u.account.profit_rate_today}}.sort{|a,b| a[:number]<=> b[:number]}.reverse
     my_rank = user.nil? ? nil : colas.find_index{|item| item[:user] == user}
-    return colas[0,count], my_rank, colas[my_rank][:number]
+    my_number = my_rank.nil? ? nil : colas[my_rank][:number]
+    return colas[0,count], my_rank, my_number
   end
 
   def balance

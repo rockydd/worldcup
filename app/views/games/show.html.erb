@@ -49,7 +49,7 @@
         <br>
         <%if(@my_bet) %>
           <%= t('games.you_have_bet', :locale => :zh)%> <span class='mybet'><%= @my_bet.amount%></span>
-          <% if @game.betable? || true%> 
+          <% if @game.betable? %> 
           <%= link_to(
                        bet_path(@my_bet, :origin=> game_path(@game)),
               :method => 'delete',
