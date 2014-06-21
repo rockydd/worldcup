@@ -8,14 +8,14 @@
     <td class='date w200'><%= date_view(game.date) %></td>
 
     <td style="text-align:center">
-      <p><%= image_tag game.host.avatar.url(:thumb), :width => 50%><p>
+      <p><%= image_tag game.host.avatar.url(:thumb), :width => 50, :class =>'flag_image'%><p>
       <p class='team-name'><%= game.host.name %><p>
     </td>
     <td>
       (<%= game.balance.to_i %>)
     </td>
     <td style="text-align:center">
-      <p><%= image_tag game.guest.avatar.url(:thumb), :width => 50 %></p>
+      <p><%= image_tag game.guest.avatar.url(:thumb), :width => 50, :class =>'flag_image'%></p>
       <p class='team-name'><%= game.guest.name %></p>
     </td>
 
