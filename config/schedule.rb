@@ -23,6 +23,6 @@ every 1.day, :at => '11:00 am' do
   runner "Account.dole"
 end
 
-every 1.day, :at => '11:59 pm' do
+every [:monday,:tuesday,:wednesday,:thursday,:friday], :at => '11:59 pm' do
   runner "Account.tax"
 end
