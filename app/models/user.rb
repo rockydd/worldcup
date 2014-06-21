@@ -36,23 +36,30 @@ class User < ActiveRecord::Base
     users = User.where.not(email: DEALER_EMAIL)
   end
   def self.top_10(count=10,user=nil)
-    users = regular_user.map{|u| {user: u, number: u.balance}}.sort{|a,b| a[:number]<=> b[:number]}.reverse
+    top(:balance, count, user)
+  end
+
+  #list top user who has the highest profit rate
+  def self.top_cola(count = 10, user=nil)
+    top(:profit_rate_today, count, user)
+  end
+
+  def self.top(attr, count=10, user=nil)
+    users= regular_user.map{|u| {user: u, number: u.send(attr)}}.sort do |a,b|
+      a[:number] == b[:number] ? -(a[:user].id <=> b[:user].id) : a[:number]<=> b[:number]
+    end.reverse
     my_rank = user.nil? ? nil : users.find_index{|item| item[:user] == user}
     my_number = my_rank.nil? ? nil : users[my_rank][:number]
     return users[0,count], my_rank, my_number
   end
 
-  #list top 3 which has the highest profit rate
-  def self.top_cola(count = 10, user=nil)
-    colas  = regular_user.map{|u| {user: u, number: u.account.profit_rate_today}}.sort{|a,b| a[:number]<=> b[:number]}.reverse
-    my_rank = user.nil? ? nil : colas.find_index{|item| item[:user] == user}
-    my_number = my_rank.nil? ? nil : colas[my_rank][:number]
-    return colas[0,count], my_rank, my_number
-  end
-
   def balance
     self.save unless self.account
     self.account.available + self.account.frozen_value
+  end
+
+  def profit_rate_today
+    self.account.profit_rate_today
   end
 
   def is_dealer?
