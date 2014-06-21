@@ -2,9 +2,11 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+<input type='radio' name='old-game' id='show-old-game'></input>
+<input type='radio' name='old-game' id='hide-old-game' checked></input>
 <table class='table table-striped game-item'>
-<% @games.each do |game| %>
-  <tr>
+<% @games.reverse.each do |game| %>
+  <tr class="<%= 'old-game' if game.date < 1.day.ago%>">
     <td class='date w200'><%= date_view(game.date) %></td>
 
     <td style="text-align:center">
@@ -35,6 +37,10 @@
   </tr>
 <% end%>
 </table>
+<div>
+  <label class='btn pull-right' id='lb-show-old' for='show-old-game'><%=t('show_old_game')%></label>
+  <label class='btn pull-right' id='lb-hide-old' for='hide-old-game'><%=t('hide_old_game')%></label>
+</div>
 
 <% if can? :create, Game %>
   <%= link_to t('.new', :default => t("helpers.links.new")),

@@ -66,4 +66,18 @@ span.odds .bet-count{
   color: red;
 }
 
+input[name=old-game] {
+  display: none;
+}
+#hide-old-game:checked ~ table .old-game{
+  display: none;
+}
+
+#hide-old-game:checked ~ div #lb-hide-old{
+  display: none;
+}
+
+#show-old-game:checked ~ div #lb-show-old{
+  display: none;
+}
 
