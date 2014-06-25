@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: User::DEALER_MAIL
   helper :application
 
   def account_change(user, account_log)
