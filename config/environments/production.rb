@@ -74,6 +74,9 @@ Worldcup::Application.configure do
     :enable_starttls_auto => true  }
 
 
+  raise "ENV[HOST_IP] not set" if ENV['HOST_IP'].nil?
+
+  config.action_mailer.default_url_options = { host: ENV['HOST_IP'], port: 80}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
