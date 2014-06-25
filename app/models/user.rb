@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
   DEALER_BALANCE=100000000
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :bets
+  has_many :bets, dependent: :destroy
   has_many :gambles, through: :bets
-  has_one :account
-  devise :database_authenticatable, :registerable,
+  has_one :account, dependent: :destroy
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   include RoleModel
   extend Util

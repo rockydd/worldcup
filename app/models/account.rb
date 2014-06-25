@@ -6,7 +6,7 @@ class Account < ActiveRecord::Base
   TAX_THRESHOLD=0.5
   TAX_RATIO = 0.10
   belongs_to :user
-  has_many :logs, :class_name => AccountLog
+  has_many :logs, :class_name => AccountLog, dependent: :destroy
 
   def self.dole
     dole_value = get_value_from_config("dole_value")||100
