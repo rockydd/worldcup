@@ -3,6 +3,10 @@ module GamesHelper
     date.strftime("%Y-%m-%d %H:%M %a")
   end
 
+  def balance_view(balance)
+    balance > 0 ? "+#{balance.to_i}" : balance.to_i
+  end
+
   def odds_view_for_game(game, user)
     #"<span>#{t(:host) + t(:win)} #{game.bet_for_win.odds} </span>"
 
