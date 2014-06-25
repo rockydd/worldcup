@@ -61,4 +61,8 @@ class Bet < ActiveRecord::Base
     ac.available += self.amount
     ac.save
   end
+
+  def long_desc
+    self.gamble.target.result_desc
+  end
 end

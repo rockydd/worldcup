@@ -4,6 +4,8 @@ include Util
 RSpec.describe Account, :type => :model do
   it "should dole to account whose funds less than 100 and no frozen values" do
     expect([nil,100]).to include(get_value_from_config("dole_value"))
+    user = double('User', :email => 'fake@email.com')
+    allow_any_instance_of(Account).to receive(:user).and_return(user)
     ac1=Account.create(:available => 200, :frozen_value => 100)
     ac2=Account.create(:available => 55, :frozen_value => 2)
     ac3=Account.create(:available => 0, :frozen_value => 100)
@@ -37,6 +39,9 @@ RSpec.describe Account, :type => :model do
   end
 
   it "should take tax from people who bet less than 50%" do
+    user = double('User', :email => 'fake@email.com', :is_dealer? => false)
+    allow_any_instance_of(Account).to receive(:user).and_return(user)
+    ac1=Account.create(:available => 200, :frozen_value => 100)
     ac1=Account.create(:available => 1000, :frozen_value => 2000)
     ac2=Account.create(:available => 1000, :frozen_value => 1000)
     ac3=Account.create(:available => 1000, :frozen_value => 999)

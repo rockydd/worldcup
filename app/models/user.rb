@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
-    AccountLog.create(account_id: self.account.id, change: chips-bet.amount, source:AccountLog::BET, description: "won #{chips-bet.amount}")
+    AccountLog.create(account_id: self.account.id, change: chips-bet.amount, source:AccountLog::BET, description: "#{bet.long_desc}, you won #{chips-bet.amount}.")
     return chips
   end
 
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
-    AccountLog.create(account_id: self.account.id, change: -bet.amount, source:AccountLog::BET, description: "lost #{bet.amount}")
+    AccountLog.create(account_id: self.account.id, change: -bet.amount, source:AccountLog::BET, description: "#{bet.long_desc}, you lost #{bet.amount}.")
     return bet.amount
   end
 

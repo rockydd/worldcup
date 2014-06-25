@@ -58,6 +58,14 @@ class Game < ActiveRecord::Base
     status == STATUS_END
   end
 
+  def result_desc
+    if ended?
+      "#{host.name} #{host_score}:#{guest_score} #{guest.name}"
+    else
+      "game is not ended"
+    end
+  end
+
   #you can bet on the game until 1 hour before the game start
   def betable?
     status == STATUS_NOT_STARTED && self.date && (self.date - 5.minutes) > Time.now
@@ -93,6 +101,8 @@ class Game < ActiveRecord::Base
 
   def update_gamble
     begin
+      self.gamble.target_id = self.id
+      self.gamble.save
       if self.ended?
         update_gamble_items
         gamble.pay_up
