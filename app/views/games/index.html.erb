@@ -40,6 +40,8 @@
 <% end%>
 </table>
 <div class='game-summary-list'>
+  <span class='summary-title pull-left'><%= t('games.journey', :locale => :zh)%></span>
+  <hr/>
   <% @games.each do |game|%>
     <% next unless game.ended?%>
     <div class='game-summary team<%=game.host.id%> team<%=game.guest.id%>'>
@@ -63,13 +65,22 @@
   $(".team-panel").hover(function(e){
     //console.log($(this));
     //console.log($(this).offset());
+    console.log("screenY:"+e.screenY+"; window height:"+$(window).height());
     var teamid=$(this).find("input").val()
-    var bottom=$(this).offset().top + $(this).height();
+    var this_top = $(this).offset().top;
+    var panel_top = this_top + $(this).height();
     var left = $(this).offset().left+100;
-    $(".game-summary-list").offset({top:bottom, left: left});
-    $(".game-summary-list").fadeIn();
+
     $(".game-summary-list .game-summary").hide();
     $(".game-summary-list ."+teamid).show();
+    var panel_height = $(".game-summary-list").height();
+    if(e.screenY+ panel_height > $(window).height())
+    {
+      panel_top = this_top - panel_height - 10;
+    }
+
+    $(".game-summary-list").offset({top:panel_top, left: left});
+    $(".game-summary-list").fadeIn();
   });
   $(window).click(function(){
     $(".game-summary-list").hide();
