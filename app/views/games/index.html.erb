@@ -9,14 +9,16 @@
   <tr class="<%= 'old-game' if game.date < 1.day.ago%>">
     <td class='date w200'><%= date_view(game.date) %></td>
 
-    <td style="text-align:center">
+    <td style="text-align:center" class='team-panel'>
+      <input type='hidden' value='team<%=game.host.id%>'></input>
       <p><%= image_tag game.host.avatar.url(:thumb), :width => 50, :class =>'flag_image'%><p>
       <p class='team-name'><%= game.host.name %><p>
     </td>
     <td>
       (<%= balance_view(game.balance)%>)
     </td>
-    <td style="text-align:center">
+    <td style="text-align:center" class='team-panel'>
+      <input type='hidden' value='team<%=game.guest.id%>'></input>
       <p><%= image_tag game.guest.avatar.url(:thumb), :width => 50, :class =>'flag_image'%></p>
       <p class='team-name'><%= game.guest.name %></p>
     </td>
@@ -37,6 +39,16 @@
   </tr>
 <% end%>
 </table>
+<div class='game-summary-list'>
+  <% @games.each do |game|%>
+    <% next unless game.ended?%>
+    <div class='game-summary team<%=game.host.id%> team<%=game.guest.id%>'>
+      <span><%= game.host.name%></span>
+      <span class='score'><%= game.host_score %> : <%=game.guest_score%></span>
+      <span><%= game.guest.name%></span>
+    </div>
+  <% end%>
+</div>
 <div>
   <label class='btn pull-right' id='lb-show-old' for='show-old-game'><%=t('show_old_game')%></label>
   <label class='btn pull-right' id='lb-hide-old' for='hide-old-game'><%=t('hide_old_game')%></label>
@@ -47,3 +59,20 @@
     new_game_path,
     :class => 'btn btn-primary' %>
 <% end%>
+<script>
+  $(".team-panel").hover(function(){
+    var teamid=$(this).find("input").val()
+    var bottom=$(this).offset().top + $(this).height();
+    var left = $(this).offset().left;
+    $(".game-summary-list").offset({top:bottom+20, left: left});
+    $(".game-summary-list").fadeIn();
+    $(".game-summary-list .game-summary").hide();
+    $(".game-summary-list ."+teamid).show();
+  });
+  $(window).click(function(){
+    $(".game-summary-list").hide();
+  });
+  $(".game-summary-list").hover(function(){
+    $(this).hide();
+  });
+</script>

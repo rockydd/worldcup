@@ -80,4 +80,20 @@ input[name=old-game] {
 #show-old-game:checked ~ div #lb-show-old{
   display: none;
 }
+.game-summary-list{
+  display: none;
+  position: absolute;
+  top: 100px;
+  background-color: white;
+  border: solid 1px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px #888888;
+  -webkit-box-shadow: 10px 10px 5px #888888;
+  -moz-box-shadow: 10px 10px 5px #888888;
+  padding: 5px;
+  text-align: center;
 
+}
