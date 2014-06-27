@@ -60,11 +60,13 @@
     :class => 'btn btn-primary' %>
 <% end%>
 <script>
-  $(".team-panel").hover(function(){
+  $(".team-panel").hover(function(e){
+    //console.log($(this));
+    //console.log($(this).offset());
     var teamid=$(this).find("input").val()
     var bottom=$(this).offset().top + $(this).height();
-    var left = $(this).offset().left;
-    $(".game-summary-list").offset({top:bottom+20, left: left});
+    var left = $(this).offset().left+100;
+    $(".game-summary-list").offset({top:bottom, left: left});
     $(".game-summary-list").fadeIn();
     $(".game-summary-list .game-summary").hide();
     $(".game-summary-list ."+teamid).show();
