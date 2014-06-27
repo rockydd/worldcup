@@ -42,14 +42,16 @@
 <div class='game-summary-list'>
   <span class='summary-title pull-left'><%= t('games.journey', :locale => :zh)%></span>
   <hr/>
+  <table>
   <% @games.each do |game|%>
     <% next unless game.ended?%>
-    <div class='game-summary team<%=game.host.id%> team<%=game.guest.id%>'>
-      <span><%= game.host.name%></span>
-      <span class='score'><%= game.host_score %> : <%=game.guest_score%></span>
-      <span><%= game.guest.name%></span>
-    </div>
+    <tr class='game-summary team<%=game.host.id%> team<%=game.guest.id%>'>
+      <td><span><%= game.host.name%></span></td>
+      <td><span class='score'><%= game.host_score %> : <%=game.guest_score%></span></td>
+      <td><span><%= game.guest.name%></span></td>
+    </tr>
   <% end%>
+  </table>
 </div>
 <div>
   <label class='btn pull-right' id='lb-show-old' for='show-old-game'><%=t('show_old_game')%></label>
