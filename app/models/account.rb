@@ -23,6 +23,9 @@ class Account < ActiveRecord::Base
   def self.tax
     #tax if frozen_value/(frozen_value+available) < 50%
 
+    today_games=Game.where("date > ? and date <?", Time.now, Time.now+1.day)
+    return if today_games.nil? || today_games.empty?
+
     Account.all.each do|account|
 
       frozen_value = account.frozen_value
