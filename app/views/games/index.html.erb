@@ -67,7 +67,8 @@
   $(".team-panel").hover(function(e){
     //console.log($(this));
     //console.log($(this).offset());
-    console.log("screenY:"+e.screenY+"; window height:"+$(window).height());
+    //console.log($(this));
+    //console.log("screenY:"+e.screenY+"; window height:"+$(window).height());
     var teamid=$(this).find("input").val()
     var this_top = $(this).offset().top;
     var panel_top = this_top + $(this).height();
@@ -80,9 +81,11 @@
     {
       panel_top = this_top - panel_height - 10;
     }
+    //console.log("this_top:"+this_top+";left:"+left+";panel_top:"+panel_top+";panel_height:"+panel_height);
 
-    $(".game-summary-list").offset({top:panel_top, left: left});
     $(".game-summary-list").fadeIn();
+    $(".game-summary-list").offset({top:panel_top, left: left});
+    //console.log($(".game-summary-list").offset());
   });
   $(window).click(function(){
     $(".game-summary-list").hide();
