@@ -12,7 +12,7 @@
 
   <div class='game-summary center-box'>
     <%= image_tag @game.host.avatar.url(:thumb), :class => 'flag_image' %>
-    <span>(<%= @game.balance > 0 ? "+" : ""%><%= @game.balance.to_i %>)</span>
+    <span>(<%=balance_view(@game.balance)%>)</span>
     <%= image_tag @game.guest.avatar.url(:thumb), :class => 'flag_image'%>
   </div>
 

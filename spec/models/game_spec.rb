@@ -10,13 +10,18 @@ RSpec.describe Game, :type => :model do
     game=Game.create(:host_id => @brazil.id, :guest_id => @argentina.id, :host_win_odds => 1.8, :draw_odds => 2.7, :guest_win_odds => 3.8, :balance => 1)
     expect(game.gamble).not_to be_nil
     expect(game.gamble.items.size).to eq 3
+    expect(game.gamble.target.id).to eq game.id
+    expect(game.ended?).to be false
     items = game.gamble.items
     expect(game.bet_for_win.odds).to eq 1.8
     expect(game.bet_for_draw.odds).to eq 2.7
     expect(game.bet_for_lose.odds).to eq 3.8
     game.host_score = 3
     game.guest_score = 1
+    game.status = 2
     game.save
+    expect(game.gamble.target.id).to eq game.id
+    expect(game.ended?).to be true
   end
 
   it "should close the gamble and pay up when game end" do

@@ -9,14 +9,16 @@
   <tr class="<%= 'old-game' if game.date < 1.day.ago%>">
     <td class='date w200'><%= date_view(game.date) %></td>
 
-    <td style="text-align:center">
+    <td style="text-align:center" class='team-panel'>
+      <input type='hidden' value='team<%=game.host.id%>'></input>
       <p><%= image_tag game.host.avatar.url(:thumb), :width => 50, :class =>'flag_image'%><p>
       <p class='team-name'><%= game.host.name %><p>
     </td>
-    <td>
-      (<%= game.balance.to_i %>)
-    </td>
     <td style="text-align:center">
+      (<%= balance_view(game.balance)%>)
+    </td>
+    <td style="text-align:center" class='team-panel'>
+      <input type='hidden' value='team<%=game.guest.id%>'></input>
       <p><%= image_tag game.guest.avatar.url(:thumb), :width => 50, :class =>'flag_image'%></p>
       <p class='team-name'><%= game.guest.name %></p>
     </td>
@@ -37,6 +39,20 @@
   </tr>
 <% end%>
 </table>
+<div class='game-summary-list'>
+  <span class='summary-title pull-left'><%= t('games.journey', :locale => :zh)%></span>
+  <hr/>
+  <table>
+  <% @games.each do |game|%>
+    <% next unless game.ended?%>
+    <tr class='game-summary team<%=game.host.id%> team<%=game.guest.id%>'>
+      <td><span><%= game.host.name%></span></td>
+      <td><span class='score'><%= game.host_score %> : <%=game.guest_score%></span></td>
+      <td><span><%= game.guest.name%></span></td>
+    </tr>
+  <% end%>
+  </table>
+</div>
 <div>
   <label class='btn pull-right' id='lb-show-old' for='show-old-game'><%=t('show_old_game')%></label>
   <label class='btn pull-right' id='lb-hide-old' for='hide-old-game'><%=t('hide_old_game')%></label>
@@ -47,3 +63,34 @@
     new_game_path,
     :class => 'btn btn-primary' %>
 <% end%>
+<script>
+  $(".team-panel").hover(function(e){
+    //console.log($(this));
+    //console.log($(this).offset());
+    //console.log($(this));
+    //console.log("screenY:"+e.screenY+"; window height:"+$(window).height());
+    var teamid=$(this).find("input").val()
+    var this_top = $(this).offset().top;
+    var panel_top = this_top + $(this).height();
+    var left = $(this).offset().left+100;
+
+    $(".game-summary-list .game-summary").hide();
+    $(".game-summary-list ."+teamid).show();
+    var panel_height = $(".game-summary-list").height();
+    if(e.screenY+ panel_height > $(window).height())
+    {
+      panel_top = this_top - panel_height - 10;
+    }
+    //console.log("this_top:"+this_top+";left:"+left+";panel_top:"+panel_top+";panel_height:"+panel_height);
+
+    $(".game-summary-list").fadeIn();
+    $(".game-summary-list").offset({top:panel_top, left: left});
+    //console.log($(".game-summary-list").offset());
+  });
+  $(window).click(function(){
+    $(".game-summary-list").hide();
+  });
+  $(".game-summary-list").hover(function(){
+    $(this).hide();
+  });
+</script>

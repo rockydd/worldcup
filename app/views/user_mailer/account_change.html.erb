@@ -1,0 +1,27 @@
+<h2>Hello, <%= username_view(@user.email)%></h2>
+
+<p>
+<% case @account_log.source when AccountLog::BET%>
+  <%if @account_log.change > 0%>
+    <span>Congratulations! <%= @account_log.description%></span>
+  <% else%>
+    <span>Hey, <%= @account_log.description%></span>
+  <% end%>
+<% when AccountLog::TAX%>
+  <span> Sorry, my friend :(. You were taxed by <strong><%= -@account_log.change.round(2) %></strong>. Dont' forget to bet today!</span>
+  <br/>
+  <br/>
+  <span> 非常抱歉的通知您，由于您今日投注比例不足，您的账户被收取了<strong color='red'>$<%= -@account_log.change.round(2) %></strong> 元的税金. 感谢您为国家的繁荣富强做出的贡献！明天别忘了投注啊! ^^</span>
+<% when AccountLog::DOLE%>
+  <span> Hi, poor guy. You have received <strong>$<%= @account_log.change%> </strong> as dole.</span>
+  <br/>
+  <br/>
+  <span> 亲爱的朋友, 您收到了<strong>$<%= @account_log.change%> </strong> 的救济金. 又可以 All in 啦！</span>
+<%end%>
+</p>
+<p>
+<span>Happy Betting!</span>
+<p>
+<%= link_to "World Cup 10.32.174.67", "http://10.32.174.67"%>
+</p>
+</p>

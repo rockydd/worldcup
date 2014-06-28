@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617144328) do
+ActiveRecord::Schema.define(version: 20140625142310) do
 
   create_table "account_logs", force: true do |t|
     t.integer  "account_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140617144328) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "gamble_type"
+    t.integer  "target_id"
   end
 
   create_table "games", force: true do |t|
@@ -97,6 +98,10 @@ ActiveRecord::Schema.define(version: 20140617144328) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "roles_mask"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

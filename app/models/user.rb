@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
   DEALER_BALANCE=100000000
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :bets
+  has_many :bets, dependent: :delete_all
   has_many :gambles, through: :bets
-  has_one :account
-  devise :database_authenticatable, :registerable,
+  has_one :account, dependent: :destroy
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   include RoleModel
   extend Util
@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
-    AccountLog.create(account_id: self.account.id, change: chips-bet.amount, source:AccountLog::BET, description: "won #{chips-bet.amount}")
+    AccountLog.create(account_id: self.account.id, change: chips-bet.amount, source:AccountLog::BET, description: "#{bet.long_desc}, you won #{chips-bet.amount.round(2)}.")
     return chips
   end
 
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
     self.account.frozen_value -= bet.amount
     self.account.save
     self.save
-    AccountLog.create(account_id: self.account.id, change: -bet.amount, source:AccountLog::BET, description: "lost #{bet.amount}")
+    AccountLog.create(account_id: self.account.id, change: -bet.amount, source:AccountLog::BET, description: "#{bet.long_desc}, you lost #{bet.amount.round(2)}.")
     return bet.amount
   end
 

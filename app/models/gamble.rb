@@ -13,6 +13,14 @@ class Gamble < ActiveRecord::Base
     Hash[*item_odds]
   end
 
+  #which game or something else this gamble target
+  def target
+    case self.gamble_type
+    when 'match'
+      Game.find(self.target_id)
+    end
+  end
+
   def close
     self.status = STATUS_CLOSED
     self.save
