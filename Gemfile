@@ -46,6 +46,7 @@ gem 'debugger', group: [:development, :test]
 
 gem 'devise'
 gem 'cancancan'
+gem 'acts_as_commentable'
 gem 'role_model'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
