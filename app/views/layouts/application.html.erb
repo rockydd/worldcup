@@ -99,7 +99,7 @@
               <% me = current_user %>
               <h3><i class='fa fa-trophy'></i> Top 10</h3>
               <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 10, :me => me, :formatter => :float_str}%>
-              <h3><i class='fa fa-beer'></i> Cola Winner</h3>
+              <h3><i class='fa fa-beer'></i> Top ROI</h3>
               <%= render :partial => 'layouts/top_view', :locals => {:method => :top_cola, :top_count => 10, :me => me, :formatter=> :percentize}%>
             </div><!--/.well -->
 
