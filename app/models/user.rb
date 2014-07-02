@@ -53,6 +53,11 @@ class User < ActiveRecord::Base
     return users[0,count], my_rank, my_number
   end
 
+
+  def name
+    email.split("@")[0]
+  end
+
   def balance
     self.save unless self.account
     self.account.available + self.account.frozen_value
