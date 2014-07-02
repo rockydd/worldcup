@@ -69,6 +69,7 @@
   </div>
 
   <hr></hr>
+  <%= render :partial => "comments", :locals => {game: @game}%>
 
 <div class="">
   <%= link_to t('.back', :default => t("helpers.links.back")),

@@ -10,6 +10,7 @@ class Ability
       can :create, Bet
       can :destroy, Bet
       can :read, :all
+      can :add_comment, Game
     else
       can :read, :all
     end

@@ -15,6 +15,7 @@ class Game < ActiveRecord::Base
   belongs_to :bet_for_win, :class_name => GambleItem
   belongs_to :bet_for_draw, :class_name => GambleItem
   belongs_to :bet_for_lose, :class_name => GambleItem
+  acts_as_commentable
 
   attr_accessor :host_win_odds, :draw_odds, :guest_win_odds
 

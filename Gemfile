@@ -48,7 +48,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'acts_as_commentable'
 gem 'role_model'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap3-rails'
 gem 'less-rails'
 gem 'paperclip', "~> 4.1"
 group :development, :test do

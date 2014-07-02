@@ -14,6 +14,7 @@ class GamesController < ApplicationController
   def show
     @gamble = @game.gamble
     @bet_items = current_user && current_user.bets_for_gamble(@gamble)
+    @comments = @game.comments
   end
 
   # GET /games/new
@@ -66,6 +67,17 @@ class GamesController < ApplicationController
     end
   end
 
+  def add_comment
+    content = comment_params[:content]
+    game = Game.find(params[:id])
+
+    comment = game.comments.create
+    comment.comment = content
+    comment.user = current_user
+    comment.save
+    redirect_to game
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
@@ -75,5 +87,9 @@ class GamesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
       params.require(:game).permit(:date, :host_id, :guest_id, :host_score, :guest_score, :status, :balance, :host_win_odds, :draw_odds, :guest_win_odds)
+    end
+
+    def comment_params
+      params.require(:comment).permit(:content, :game_id)
     end
 end

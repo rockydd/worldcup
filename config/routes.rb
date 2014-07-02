@@ -8,6 +8,7 @@ Worldcup::Application.routes.draw do
   resources :teams
 
   resources :games
+  post 'games/:id/add_comment', to: 'games#add_comment'
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
