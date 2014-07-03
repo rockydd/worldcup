@@ -2,6 +2,10 @@ require 'rails_helper'
 require 'util'
 include Util
 RSpec.describe Account, :type => :model do
+  before :each do
+    @brazil = create(:team)
+    @argentina = create(:team)
+  end
   it "should dole to account whose funds less than 100 and no frozen values" do
     expect([nil,100]).to include(get_value_from_config("dole_value"))
     user = double('User', :email => 'fake@email.com')
@@ -39,6 +43,7 @@ RSpec.describe Account, :type => :model do
   end
 
   it "should take tax from people who bet less than 50%" do
+    game=Game.create(:host_id => @brazil.id, :guest_id => @argentina.id, :date => Time.now+10.hours, :host_win_odds => 1.8, :draw_odds => 2.7, :guest_win_odds => 3.8, :balance => 1)
     user = double('User', :email => 'fake@email.com', :is_dealer? => false)
     allow_any_instance_of(Account).to receive(:user).and_return(user)
     ac1=Account.create(:available => 200, :frozen_value => 100)
