@@ -13,6 +13,8 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css", :media => "all" %>
+    <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css", :media => "all" %>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -35,25 +37,23 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
   </head>
   <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">WorldCup</a>
-          <div class="container nav-collapse">
-            <ul class="nav">
-              <li><%= link_to raw("<i class='fa fa-home'></i> Games"), "/games"  %></li>
-              <li><%= link_to raw("<i class='fa fa-child'></i> Teams"), "/teams"  %></li>
-            </ul>
-            <ul class="nav pull-right">
+    <div class="navbar navbar-static-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Worldcup</a>
+        <div class="nav-collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to raw("<i class='fa fa-home'></i> Games"), "/games"  %></li>
+            <li><%= link_to raw("<i class='fa fa-child'></i> Teams"), "/teams"  %></li>
+          </ul>
+            <ul class="nav navbar-nav pull-right">
               <% if user_signed_in? %>
                 <% account = current_user.account %>
                 <li><%= link_to current_user.email, "/games" %></li>
@@ -66,52 +66,50 @@
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                <div class="dropdown-menu" style="padding: 15px; border-radius: 5px; width: 250px">
                   
                   <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="vN2zPqbdwsTYZ/rExgZuXwGuhx+b+YlU+5IzRpF69ps="></div>
                     <div><label for="user_email">Email</label><br>
-                      <input autofocus="autofocus" id="user_email" name="user[email]" type="email" value=""></div>
+                      <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="email" value=""></div>
 
                     <div><label for="user_password">Password</label><br>
-                      <input autocomplete="off" id="user_password" name="user[password]" type="password"></div>
+                      <input autocomplete="off" class="form-control" id="user_password" name="user[password]" type="password"></div>
 
-                    <div><input name="user[remember_me]" type="hidden" value="0"><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> <label for="user_remember_me">Remember me</label></div>
+                    <div><input name="user[remember_me]" class="form-control"  type="hidden" value="0"><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> <label for="user_remember_me">Remember me</label></div>
 
-                    <div><input name="commit" type="submit" value="Sign in"></div>
+                    <div><input name="commit" type="submit" class="btn btn-default" value="Sign in"></div>
                   </form>
                 </div>
                 </li>
               <% end %>
             </ul>
-          </div><!--/.nav-collapse -->
+
         </div>
       </div>
     </div>
 
     <div class="container">
-        <div class="row">
-          <div class="span9">
-            <%= bootstrap_flash %>
-            <%= yield %>
-          </div>
-          <div class="span3">
-            <div class="well sidebar-nav">
-              <% me = current_user %>
-              <h3><i class='fa fa-trophy'></i> Top 10</h3>
-              <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 10, :me => me, :formatter => :float_str}%>
-              <h3><i class='fa fa-beer'></i> Top ROI</h3>
-              <%= render :partial => 'layouts/top_view', :locals => {:method => :top_cola, :top_count => 10, :me => me, :formatter=> :percentize}%>
-            </div><!--/.well -->
-
-          </div><!--/span-->
-        </div><!--/row-->
+      <div class="row">
+        <div class="col-lg-9">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+        <div class="col-lg-3">
+          <div class="well sidebar-nav">
+            <% me = current_user %>
+            <h3><i class='fa fa-trophy'></i> Top 10</h3>
+            <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 10, :me => me, :formatter => :float_str}%>
+            <h3><i class='fa fa-beer'></i> Top ROI</h3>
+            <%= render :partial => 'layouts/top_view', :locals => {:method => :top_cola, :top_count => 10, :me => me, :formatter=> :percentize}%>
+          </div><!--/.well -->
+        </div><!--/span-->
+      </div><!--/row-->
 
       <footer>
         <p>ASD &copy; Company 2014</p>
       </footer>
 
     </div> <!-- /container -->
-
 
   </body>
 </html>

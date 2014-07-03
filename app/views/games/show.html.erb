@@ -42,7 +42,7 @@
           <div class='bet-field'>
           <%= f.number_field :amount, :class=> 'bet-box', :value => default_bet_chips(me)%>
           <%= button_tag gamble_item.desc,
-            data: {confirm: "Are you sure to bet on #{gamble_item.desc}?"}, class: "btn bet-button #{'btn-primary' if me and me.has_bet_on?(gamble_item)}" %>
+            data: {confirm: "Are you sure to bet on #{gamble_item.desc}?"}, class: "btn btn-default bet-button #{'btn-primary' if me and me.has_bet_on?(gamble_item)}" %>
 
           </div>
         <% end%>
@@ -73,7 +73,7 @@
 
 <div class="">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              games_path, :class => 'btn'  %>
+              games_path, :class => 'btn btn-info'  %>
   <% if can? :update, @game%>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
       edit_game_path(@game), :class => 'btn' %>
