@@ -75,7 +75,7 @@ class GamesController < ApplicationController
     comment.comment = content
     comment.user = current_user
     comment.save
-    redirect_to game
+    redirect_to game_path(game, :anchor => 'comment')
   end
 
   private

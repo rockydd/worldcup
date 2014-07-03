@@ -1,6 +1,9 @@
 
-<h3>hello</h3>
-<div class="panel panel-default widget">
+<%= form_tag "/games/#{game.id}/add_comment", method: "post", id: "comment", class: "pull-right", style: 'margin-bottom: 15px' do %>
+  <%= text_area_tag "comment[content]", nil, rows:5, cols:80, :class => "input-control" %>
+  <%= submit_tag t("games.comments.add", :locale => :zh), :class => 'btn btn-primary',:style => 'vertical-align: bottom'%>
+<% end%>
+<div class="panel panel-default widget" style="clear:both">
   <div class="panel-heading">
     <span class="glyphicon glyphicon-comment"></span>
     <h3 class="panel-title">
@@ -9,7 +12,7 @@
   </div>
   <div class="panel-body">
     <ul class="list-group">
-      <% game.comments.each do |comment|%>
+      <% game.comments.reverse.each do |comment|%>
         <li class="list-group-item">
         <div class="row">
           <div class="col-xs-2 col-md-1">
@@ -17,7 +20,7 @@
           <div class="col-xs-10 col-md-11">
             <div>
               <div class="mic-info">
-                By: <a href="#"><%= comment.user ? comment.user.name : 'anonymous'%></a> <%= comment.created_at%>
+                By: <a href="#"><%= comment.user ? comment.user.name : 'anonymous'%></a> <%= l comment.created_at, format: :short, locale: :zh%>
               </div>
             </div>
             <div class="comment-text">
@@ -31,7 +34,3 @@
   </div>
 </div>
 
-<%= form_tag "/games/#{game.id}/add_comment", method: "post" do %>
-  <%= text_area_tag "comment[content]" %>
-  <%= submit_tag nil, :class => 'btn btn-primary' %>
-<% end%>

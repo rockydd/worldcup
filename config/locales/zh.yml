@@ -9,6 +9,8 @@ zh:
     delete_bet_confirm: 确定取消这次投注吗？
     no_priviledge_to_delete_bet: 你无法取消这次投注。
     journey: 历史战绩
+    comments:
+      add: 说两句
   date:
     abbr_day_names:
     - 日
