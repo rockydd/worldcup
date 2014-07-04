@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
   include ActsAsCommentable::Comment
 
   belongs_to :commentable, :polymorphic => true
+  validates :comment, length: { minimum: 2 }
 
   default_scope -> { order('created_at ASC') }
 

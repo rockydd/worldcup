@@ -74,8 +74,16 @@ class GamesController < ApplicationController
     comment = game.comments.create
     comment.comment = content.first(500)
     comment.user = current_user
-    comment.save
-    redirect_to game_path(game, :anchor => 'comment')
+    respond_to do |format|
+      if comment.save
+        format.html {redirect_to game_path(game, :anchor => 'comment')}
+        format.json { head :no_content}
+      else
+        format.html { redirect_to game_path(game), :flash => {:error => comment.errors.full_messages}}
+        format.json { render json: comment.errors}
+      end
+    end
+
   end
 
   private
