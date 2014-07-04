@@ -72,7 +72,7 @@ class GamesController < ApplicationController
     game = Game.find(params[:id])
 
     comment = game.comments.create
-    comment.comment = content
+    comment.comment = content.first(500)
     comment.user = current_user
     comment.save
     redirect_to game_path(game, :anchor => 'comment')

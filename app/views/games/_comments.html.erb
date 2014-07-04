@@ -1,6 +1,6 @@
 
 <%= form_tag "/games/#{game.id}/add_comment", method: "post", id: "comment", class: "pull-right", style: 'margin-bottom: 15px' do %>
-  <%= text_area_tag "comment[content]", nil, rows:5, cols:80, :class => "input-control" %>
+  <%= text_area_tag "comment[content]", nil, rows:5, cols:80, maxlength:500, :class => "input-control" %>
   <%= submit_tag t("games.comments.add", :locale => :zh), :class => 'btn btn-primary',:style => 'vertical-align: bottom'%>
 <% end%>
 <div class="panel panel-default widget" style="clear:both">
