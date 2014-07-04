@@ -64,11 +64,12 @@
     :class => 'btn btn-primary' %>
 <% end%>
 <script>
-  $(".team-panel").hover(function(e){
+  function showSummary(e){
     //console.log($(this));
     //console.log($(this).offset());
     //console.log($(this));
     //console.log("screenY:"+e.screenY+"; window height:"+$(window).height());
+    //console.log($(this));
     var teamid=$(this).find("input").val()
     var this_top = $(this).offset().top;
     var panel_top = this_top + $(this).height();
@@ -86,7 +87,13 @@
     $(".game-summary-list").fadeIn();
     $(".game-summary-list").offset({top:panel_top, left: left});
     //console.log($(".game-summary-list").offset());
-  });
+  };
+
+  function hideSummary(){
+    $(".game-summary-list").hide();
+  }
+
+  $(".team-panel").hoverIntent(showSummary, hideSummary);
   $(window).click(function(){
     $(".game-summary-list").hide();
   });
