@@ -66,7 +66,8 @@ class Account < ActiveRecord::Base
   alias :total :balance
 
   def profit_rate_today
-    logs=AccountLog.where("created_at > ? and account_id = ?", Date.today.to_time, self.id)
+    last_game_day = Game.last.nil? ? Date.today.to_time : Game.last.date.to_date.to_time
+    logs=AccountLog.where("created_at > ? and account_id = ?", last_game_day, self.id)
     change=logs.map{|l|l.change||0}.sum
     origin = self.balance-change
     return 0 if origin == 0
