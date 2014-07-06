@@ -1,0 +1,7 @@
+<ul class='comment-list'>
+  <% Comment.recent.limit(10).all.each do|comment| %>
+    <li>
+    <span class="glyphicon glyphicon-comment"></span>
+    <%= link_to string_thumb(comment.comment), model_path(comment.commentable) + "#comment"%></li>
+  <% end%>
+</ul>

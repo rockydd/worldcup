@@ -102,6 +102,10 @@
             <h3><i class='fa fa-beer'></i> Top ROI</h3>
             <%= render :partial => 'layouts/top_view', :locals => {:method => :top_cola, :top_count => 10, :me => me, :formatter=> :percentize}%>
           </div><!--/.well -->
+
+          <div class='comments-panel'>
+            <%= render :partial => "comments/latest" %>
+          </div>
         </div><!--/span-->
       </div><!--/row-->
 

@@ -106,3 +106,14 @@ input[name=old-game] {
 .game-summary{
   clear: both;
 }
+ul.comment-list{
+  list-style: none;
+  padding-left: 10px;
+}
+
+ul.comment-list li{
+  border-top: dash;
+}
+ul.comment-list span.glyphicon{
+  color: #ccc;
+}
