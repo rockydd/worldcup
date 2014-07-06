@@ -29,6 +29,10 @@ class Game < ActiveRecord::Base
     super(params)
   end
 
+  def self.last_end_game
+    Game.where("status = ?", STATUS_END).order("date").last
+  end
+
   def readable_status
     STATUS_MAP[self.status]
   end
