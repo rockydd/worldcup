@@ -5,8 +5,8 @@
 <input type='radio' name='old-game' id='show-old-game'></input>
 <input type='radio' name='old-game' id='hide-old-game' checked></input>
 <table class='table table-striped game-item'>
-<% @games.reverse.each do |game| %>
-  <tr class="<%= 'old-game' if game.date < 1.day.ago%>">
+<% @games.reverse.each_with_index do |game, i| %>
+  <tr class="<%= 'old-game' if game.date < 1.day.ago and i >= 4%>">
     <td class='date w200'><%= date_view(game.date) %></td>
 
     <td style="text-align:center" class='team-panel'>
