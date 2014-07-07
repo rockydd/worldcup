@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
 
   include ActsAsCommentable::Comment
+  before_validation :strip_white_space
 
   belongs_to :commentable, :polymorphic => true
   validates :comment, length: { minimum: 2 }
@@ -13,4 +14,8 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
+
+  def strip_white_space
+    self.comment = comment.strip if attribute_present?("comment")
+  end
 end
