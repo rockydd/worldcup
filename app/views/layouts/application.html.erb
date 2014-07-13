@@ -52,6 +52,7 @@
           <ul class="nav navbar-nav">
             <li><%= link_to raw("<i class='fa fa-home'></i> Games"), "/games"  %></li>
             <li><%= link_to raw("<i class='fa fa-child'></i> Teams"), "/teams"  %></li>
+            <li><%= link_to raw("<i class='fa fa-bank hall'></i> <span class='hall'>Hall of Fame</span>"), "/ranks"  %></li>
           </ul>
             <ul class="nav navbar-nav pull-right">
               <% if user_signed_in? %>
@@ -100,11 +101,6 @@
             <h3><i class='fa fa-trophy'></i> Top 10</h3>
             <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 20, :me => me, :formatter => :float_str}%>
             <h3><i class='fa fa-beer'></i> Top ROI</h3>
-            <%= render :partial => 'layouts/top_view', :locals => {:method => :top_cola, :top_count => 10, :me => me, :formatter=> :percentize}%>
-            <h3><i class='fa fa-beer'></i> Top dole </h3>
-            <%= render :partial => 'layouts/top_view', :locals => {:method => :top_dole, :top_count => 100, :me => me, :formatter=> :float_str}%>
-            <h3><i class='fa fa-beer'></i> Top TAX</h3>
-            <%= render :partial => 'layouts/top_view', :locals => {:method => :top_tax, :top_count => 100, :me => me, :formatter=> :float_str}%>
           </div><!--/.well -->
 
           <div class='comments-panel'>
