@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630233142) do
+ActiveRecord::Schema.define(version: 20140712233727) do
 
   create_table "account_logs", force: true do |t|
     t.integer  "account_id"
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(version: 20140630233142) do
     t.integer  "bet_for_win_id"
     t.integer  "bet_for_draw_id"
     t.integer  "bet_for_lose_id"
+  end
+
+  create_table "ranks", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "rank"
+    t.float    "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|

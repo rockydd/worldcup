@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     users = User.where.not(email: DEALER_EMAIL)
   end
   def self.top_10(count=10,user=nil)
-    top(:balance, count, user)
+    top(:balance, count, user, :total_dole)
   end
 
   #list top user who has the highest profit rate
@@ -44,9 +44,17 @@ class User < ActiveRecord::Base
     top(:profit_rate_today, count, user)
   end
 
-  def self.top(attr, count=10, user=nil)
+  def self.top_dole(count = 10, user=nil)
+    top(:total_dole, count, user)
+  end
+
+  def self.top_tax(count = 10, user=nil)
+    top(:total_tax, count, user)
+  end
+
+  def self.top(attr, count=10, user=nil, second_sort=:id)
     users= regular_user.map{|u| {user: u, number: u.send(attr)}}.sort do |a,b|
-      a[:number] == b[:number] ? -(a[:user].id <=> b[:user].id) : a[:number]<=> b[:number]
+      a[:number] == b[:number] ? -(a[:user].send(second_sort) <=> b[:user].send(second_sort)) : a[:number]<=> b[:number]
     end.reverse
     my_rank = user.nil? ? nil : users.find_index{|item| item[:user] == user}
     my_number = my_rank.nil? ? nil : users[my_rank][:number]
@@ -65,6 +73,13 @@ class User < ActiveRecord::Base
 
   def profit_rate_today
     self.account.profit_rate_today
+  end
+
+  def total_dole
+    self.account.total_dole
+  end
+  def total_tax
+    self.account.total_tax
   end
 
   def is_dealer?
