@@ -51,6 +51,12 @@ class User < ActiveRecord::Base
   def self.top_tax(count = 10, user=nil)
     top(:total_tax, count, user)
   end
+  def self.top_earn(count = 10, user=nil)
+    top(:total_earn, count, user)
+  end
+  def self.top_lose(count = 10, user=nil)
+    top(:total_lose, count, user)
+  end
 
   def self.top(attr, count=10, user=nil, second_sort=:id)
     users= regular_user.map{|u| {user: u, number: u.send(attr)}}.sort do |a,b|
@@ -80,6 +86,12 @@ class User < ActiveRecord::Base
   end
   def total_tax
     self.account.total_tax
+  end
+  def total_earn
+    self.account.total_earn
+  end
+  def total_lose
+    self.account.total_lose
   end
 
   def is_dealer?

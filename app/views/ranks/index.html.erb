@@ -2,21 +2,33 @@
 <div class="col-lg-4">
   <div class="well sidebar-nav">
     <h3><i class='fa fa-trophy'></i> 富豪榜</h3>
-    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 20, :me => me, :formatter => :float_str}%>
+    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_10, :top_count => 200, :me => me, :formatter => :float_str}%>
   </div>
 </div>
 
 <div class="col-lg-4">
   <div class="well sidebar-nav">
+    <h3><i class='fa fa-money'></i> 历史盈利榜</h3>
+    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_earn, :top_count => 200, :me => me, :formatter=> :float_str}%>
+  </div><!--/.well -->
+</div><!--/span-->
+<div class="col-lg-4">
+  <div class="well sidebar-nav">
+    <h3><i class='fa fa-money'></i> 累计亏损榜</h3>
+    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_lose, :top_count => 200, :me => me, :formatter=> :float_str}%>
+  </div><!--/.well -->
+</div><!--/span-->
+<div class="col-lg-4">
+  <div class="well sidebar-nav">
     <h3><i class='fa fa-money'></i> 纳税榜</h3>
-    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_tax, :top_count => 20, :me => me, :formatter=> :float_str}%>
+    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_tax, :top_count => 200, :me => me, :formatter=> :float_str}%>
   </div><!--/.well -->
 </div><!--/span-->
 
 <div class="col-lg-4">
   <div class="well sidebar-nav">
     <h3><i class='fa fa-heart'></i> 救助榜</h3>
-    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_dole, :top_count => 20, :me => me, :formatter=> :float_str}%>
+    <%= render :partial => 'layouts/top_view', :locals => {:method => :top_dole, :top_count => 200, :me => me, :formatter=> :float_str}%>
   </div>
 </div>
 

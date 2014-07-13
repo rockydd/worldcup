@@ -73,6 +73,13 @@ class Account < ActiveRecord::Base
     - self.logs.find_all{|l| l.source == 1}.map{|l| l.change}.sum
   end
 
+  def total_earn
+    self.logs.find_all{|l| l.source == 0 and l.change > 0}.map{|l| l.change}.sum
+  end
+  def total_lose
+    - self.logs.find_all{|l| l.source == 0 and l.change < 0}.map{|l| l.change}.sum
+  end
+
   def profit_rate_today
     last_game_day = Game.last_end_game.nil? ? Date.today.to_time : Game.last_end_game.date.to_date.to_time
     logs=AccountLog.where("created_at > ? and account_id = ?", last_game_day, self.id)
